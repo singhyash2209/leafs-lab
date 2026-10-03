@@ -1,0 +1,108 @@
+{
+  "seasons": [
+    {
+      "season": 20232024,
+      "as_of": "2023-10-01",
+      "probability_scores": {
+        "playoffs": {
+          "brier": 0.152947636875,
+          "clubs": 32,
+          "positives": 16
+        },
+        "round_2": {
+          "brier": 0.12217970812500001,
+          "clubs": 32,
+          "positives": 8
+        },
+        "conference_final": {
+          "brier": 0.10900779999999999,
+          "clubs": 32,
+          "positives": 4
+        },
+        "final": {
+          "brier": 0.06093175375,
+          "clubs": 32,
+          "positives": 2
+        },
+        "cup": {
+          "brier": 0.038091341875000004,
+          "clubs": 32,
+          "positives": 1
+        }
+      },
+      "points_mae": 9.49339375,
+      "points_rmse": 11.286795169605277,
+      "warning": "Rolling-origin retrospective season diagnostic; club outcomes are dependent. A few seasons cannot establish Cup calibration."
+    },
+    {
+      "season": 20242025,
+      "as_of": "2024-10-01",
+      "probability_scores": {
+        "playoffs": {
+          "brier": 0.235170026875,
+          "clubs": 32,
+          "positives": 16
+        },
+        "round_2": {
+          "brier": 0.12592352250000002,
+          "clubs": 32,
+          "positives": 8
+        },
+        "conference_final": {
+          "brier": 0.069332593125,
+          "clubs": 32,
+          "positives": 4
+        },
+        "final": {
+          "brier": 0.05396605937500001,
+          "clubs": 32,
+          "positives": 2
+        },
+        "cup": {
+          "brier": 0.028233288750000002,
+          "clubs": 32,
+          "positives": 1
+        }
+      },
+      "points_mae": 9.954846875,
+      "points_rmse": 12.279980975288092,
+      "warning": "Rolling-origin retrospective season diagnostic; club outcomes are dependent. A few seasons cannot establish Cup calibration."
+    },
+    {
+      "season": 20252026,
+      "as_of": "2025-10-01",
+      "probability_scores": {
+        "playoffs": {
+          "brier": 0.31600782250000004,
+          "clubs": 32,
+          "positives": 16
+        },
+        "round_2": {
+          "brier": 0.23868715999999995,
+          "clubs": 32,
+          "positives": 8
+        },
+        "conference_final": {
+          "brier": 0.11064583500000001,
+          "clubs": 32,
+          "positives": 4
+        },
+        "final": {
+          "brier": 0.061571443125,
+          "clubs": 32,
+          "positives": 2
+        },
+        "cup": {
+          "brier": 0.033077682500000004,
+          "clubs": 32,
+          "positives": 1
+        }
+      },
+      "points_mae": 13.0080875,
+      "points_rmse": 15.679586102696556,
+      "warning": "Rolling-origin retrospective season diagnostic; club outcomes are dependent. A few seasons cannot establish Cup calibration."
+    }
+  ],
+  "mean_points_mae": 10.818776041666666,
+  "warning": "Three seasons provide a diagnostic, not established Cup calibration; outcomes within each season are dependent."
+}

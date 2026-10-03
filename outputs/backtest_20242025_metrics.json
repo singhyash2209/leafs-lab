@@ -1,0 +1,34 @@
+{
+  "season": 20242025,
+  "as_of": "2024-10-01",
+  "probability_scores": {
+    "playoffs": {
+      "brier": 0.21556553375,
+      "clubs": 32,
+      "positives": 16
+    },
+    "round_2": {
+      "brier": 0.1358054875,
+      "clubs": 32,
+      "positives": 8
+    },
+    "conference_final": {
+      "brier": 0.081687883125,
+      "clubs": 32,
+      "positives": 4
+    },
+    "final": {
+      "brier": 0.05436987875000001,
+      "clubs": 32,
+      "positives": 2
+    },
+    "cup": {
+      "brier": 0.028656911874999993,
+      "clubs": 32,
+      "positives": 1
+    }
+  },
+  "points_mae": 10.02113125,
+  "points_rmse": 12.215776705479065,
+  "warning": "Rolling-origin retrospective season diagnostic; club outcomes are dependent. A few seasons cannot establish Cup calibration."
+}

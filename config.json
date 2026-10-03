@@ -1,0 +1,15 @@
+{
+  "train_seasons": [20222023, 20232024],
+  "validation_season": 20242025,
+  "test_season": 20252026,
+  "forecast_season": 20262027,
+  "as_of": "2026-10-01",
+  "expected_games_per_team": 84,
+  "simulations": 10000,
+  "seed": 504,
+  "elo_k": 20,
+  "elo_home_advantage": 45,
+  "elo_season_retention": 0.75,
+  "minimum_games_per_season": 1100,
+  "minimum_pbp_coverage": 0.98
+}

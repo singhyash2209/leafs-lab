@@ -1,0 +1,52 @@
+{
+  "coverage_by_season": {
+    "20222023": {
+      "eligible_games": 1312,
+      "parsed_games": 1312,
+      "coverage": 1.0
+    },
+    "20232024": {
+      "eligible_games": 1312,
+      "parsed_games": 1312,
+      "coverage": 1.0
+    },
+    "20242025": {
+      "eligible_games": 1312,
+      "parsed_games": 1312,
+      "coverage": 1.0
+    },
+    "20252026": {
+      "eligible_games": 1312,
+      "parsed_games": 1312,
+      "coverage": 1.0
+    }
+  },
+  "states": 1278937,
+  "games": 5256,
+  "situation_missing_fraction": 0.0,
+  "missing_features": {
+    "game_id": 0,
+    "season": 0,
+    "date": 0,
+    "home": 0,
+    "away": 0,
+    "elapsed": 0,
+    "event": 0,
+    "home_goals": 0,
+    "away_goals": 0,
+    "goal_diff": 0,
+    "remaining": 0,
+    "shot_diff": 0,
+    "skater_diff": 0,
+    "home_empty": 0,
+    "away_empty": 0,
+    "situation_missing": 0,
+    "pregame_logit": 0,
+    "home_win": 0,
+    "goal_at_second": 0,
+    "score_clock": 0,
+    "weight": 0
+  },
+  "excluded_games": 0,
+  "last_game_date": "2026-09-30"
+}

@@ -1,0 +1,2652 @@
+{
+  "surface": "dashboard",
+  "manifest": {
+    "version": 1,
+    "surface": "dashboard",
+    "title": "Leafs Lab \u2014 From a 2\u20131 Lead to Cup Chances",
+    "description": "Verified historical game probabilities and a model-based season forecast.",
+    "generatedAt": "2026-10-03T10:07:42.265023+00:00",
+    "filters": [],
+    "cards": [
+      {
+        "id": "game_p",
+        "dataset": "game_summary",
+        "sourceId": "game",
+        "description": "September 30 retrospective state: Toronto leads 2\u20131 with 5:51 remaining. Excludes that game from training.",
+        "metrics": [
+          {
+            "label": "Toronto win estimate at 2\u20131",
+            "field": "toronto_probability",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "accuracy",
+        "dataset": "game_summary",
+        "sourceId": "model",
+        "description": "Equal weight per held-out game, regulation event states, threshold 50%.",
+        "metrics": [
+          {
+            "label": "Held-out classification accuracy",
+            "field": "accuracy",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "brier",
+        "dataset": "game_summary",
+        "sourceId": "model",
+        "description": "Probability error; lower is better. Selected calibrated model compared with score/time baseline.",
+        "metrics": [
+          {
+            "label": "Calibrated Brier score",
+            "field": "brier",
+            "format": "number"
+          },
+          {
+            "label": "Score/time baseline",
+            "field": "baseline_brier",
+            "format": "number"
+          }
+        ]
+      },
+      {
+        "id": "playoffs",
+        "dataset": "toronto",
+        "sourceId": "forecast",
+        "description": "Experimental season model. Unconditional share of simulations; not established as better than a naive playoff baseline.",
+        "metrics": [
+          {
+            "label": "Make playoffs",
+            "field": "playoffs",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "final",
+        "dataset": "toronto",
+        "sourceId": "forecast",
+        "description": "Experimental season model. Unconditional share of simulations; not established as better than a naive playoff baseline.",
+        "metrics": [
+          {
+            "label": "Reach the Final",
+            "field": "final",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "cup",
+        "dataset": "toronto",
+        "sourceId": "forecast",
+        "description": "Experimental season model. Unconditional share of simulations; not established as better than a naive playoff baseline.",
+        "metrics": [
+          {
+            "label": "Win the Cup",
+            "field": "cup",
+            "format": "percent"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "id": "game_curve",
+        "title": "Toronto win probability during the game",
+        "type": "line",
+        "dataset": "game",
+        "sourceId": "game",
+        "valueFormat": "percent",
+        "encodings": {
+          "x": {
+            "field": "minute",
+            "type": "quantitative",
+            "label": "Minute"
+          },
+          "y": {
+            "field": "toronto_probability",
+            "type": "quantitative",
+            "label": "Toronto Probability"
+          }
+        }
+      },
+      {
+        "id": "reliability",
+        "title": "Predicted versus observed win frequency",
+        "type": "scatter",
+        "dataset": "calibration",
+        "sourceId": "model",
+        "valueFormat": "percent",
+        "encodings": {
+          "x": {
+            "field": "mean_prediction",
+            "type": "quantitative",
+            "label": "Mean Prediction"
+          },
+          "y": {
+            "field": "observed_rate",
+            "type": "quantitative",
+            "label": "Observed Rate"
+          }
+        }
+      },
+      {
+        "id": "brier",
+        "title": "Held-out Brier score (lower is better)",
+        "type": "bar",
+        "dataset": "models",
+        "sourceId": "model",
+        "valueFormat": "number",
+        "encodings": {
+          "x": {
+            "field": "model",
+            "type": "nominal",
+            "label": "Model"
+          },
+          "y": {
+            "field": "brier",
+            "type": "quantitative",
+            "label": "Brier"
+          }
+        }
+      },
+      {
+        "id": "cup",
+        "title": "Cup probabilities: top 10 and Toronto",
+        "type": "bar",
+        "dataset": "cup_comparison",
+        "sourceId": "forecast",
+        "valueFormat": "percent",
+        "encodings": {
+          "x": {
+            "field": "team",
+            "type": "nominal",
+            "label": "Team"
+          },
+          "y": {
+            "field": "cup",
+            "type": "quantitative",
+            "label": "Cup"
+          }
+        }
+      }
+    ],
+    "tables": [
+      {
+        "id": "teams",
+        "title": "League forecast",
+        "dataset": "teams",
+        "sourceId": "forecast",
+        "defaultSort": {
+          "field": "cup",
+          "direction": "desc"
+        },
+        "columns": [
+          {
+            "field": "team",
+            "label": "Team",
+            "type": "text"
+          },
+          {
+            "field": "elo",
+            "label": "Elo",
+            "format": "number"
+          },
+          {
+            "field": "mean_points",
+            "label": "Expected points",
+            "format": "number"
+          },
+          {
+            "field": "playoffs",
+            "label": "Playoffs",
+            "format": "percent"
+          },
+          {
+            "field": "final",
+            "label": "Final",
+            "format": "percent"
+          },
+          {
+            "field": "cup",
+            "label": "Cup",
+            "format": "percent"
+          }
+        ]
+      },
+      {
+        "id": "season_checks",
+        "title": "Retrospective season checks",
+        "dataset": "season_checks",
+        "sourceId": "season_eval",
+        "defaultSort": {
+          "field": "season",
+          "direction": "asc"
+        },
+        "columns": [
+          {
+            "field": "season",
+            "label": "Season",
+            "type": "text"
+          },
+          {
+            "field": "points_mae",
+            "label": "Points MAE",
+            "format": "number"
+          },
+          {
+            "field": "playoff_brier",
+            "label": "Playoff Brier",
+            "format": "number"
+          },
+          {
+            "field": "playoff_baseline",
+            "label": "Naive playoff Brier",
+            "format": "number"
+          },
+          {
+            "field": "cup_brier",
+            "label": "Cup Brier",
+            "format": "number"
+          },
+          {
+            "field": "cup_baseline",
+            "label": "Naive Cup Brier",
+            "format": "number"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "model",
+        "label": "Held-out NHL game-model evaluation",
+        "path": "queries/model.sql",
+        "query": {
+          "language": "sql",
+          "engine": "SQLite",
+          "sql": "SELECT 'selected_calibrated' AS model,\n SUM(weight*(prediction-home_win)*(prediction-home_win))/SUM(weight) AS brier,\n SUM(weight*CASE WHEN (prediction>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) AS accuracy\n FROM test_predictions\n UNION ALL SELECT 'baseline',SUM(weight*(baseline-home_win)*(baseline-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (baseline>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'selected_raw',SUM(weight*(raw_prediction-home_win)*(raw_prediction-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (raw_prediction>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'pregame_only',SUM(weight*(pregame_probability-home_win)*(pregame_probability-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (pregame_probability>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'constant_50_percent',SUM(weight*(0.5-home_win)*(0.5-home_win))/SUM(weight),\n SUM(weight*home_win)/SUM(weight) FROM test_predictions;\n\nSELECT MIN(9,CAST(prediction*10 AS INTEGER)) AS bin,\n SUM(weight*prediction)/SUM(weight) AS mean_prediction,\n SUM(weight*home_win)/SUM(weight) AS observed_rate,\n COUNT(DISTINCT game_id) AS games, COUNT(*) AS states\n FROM test_predictions GROUP BY bin ORDER BY bin;",
+          "description": "Frozen test-season evaluation. Equal total weight per game. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+          "tables_used": [
+            "test_predictions"
+          ],
+          "filters": {
+            "test_season": 20252026,
+            "regulation_only": true,
+            "terminal_states_excluded": true
+          },
+          "executed_at": "2026-10-03T10:07:42.265023+00:00"
+        }
+      },
+      {
+        "id": "forecast",
+        "label": "Schedule and standings Monte Carlo",
+        "path": "queries/forecast.sql",
+        "query": {
+          "language": "sql",
+          "engine": "SQLite",
+          "sql": "SELECT team,elo,points_sum*1.0/simulations AS mean_points,\n points_p10,points_p90,playoffs_count*1.0/simulations AS playoffs,\n round_2_count*1.0/simulations AS round_2,\n conference_final_count*1.0/simulations AS conference_final,\n final_count*1.0/simulations AS final,\n cup_count*1.0/simulations AS cup, cup_count AS cup_simulation_wins\n FROM forecast_counts ORDER BY cup DESC,team;",
+          "description": "Fixed-strength remaining-season and playoff simulation. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+          "tables_used": [
+            "forecast_counts"
+          ],
+          "filters": {
+            "as_of": "2026-10-03",
+            "simulations": 10000
+          },
+          "executed_at": "2026-10-03T10:07:42.265023+00:00"
+        }
+      },
+      {
+        "id": "game",
+        "label": "Toronto game reconstruction",
+        "path": "queries/game.sql",
+        "query": {
+          "language": "sql",
+          "engine": "SQLite with Python model UDF",
+          "sql": "SELECT elapsed/60.0 AS minute,\n CASE WHEN home='TOR' THEN\n home_win_probability(goal_diff,remaining,score_clock,pregame_logit,shot_diff,skater_diff,home_empty,away_empty,situation_missing)\n ELSE 1.0-home_win_probability(goal_diff,remaining,score_clock,pregame_logit,shot_diff,skater_diff,home_empty,away_empty,situation_missing)\n END AS toronto_probability, home_goals, away_goals\n FROM game_states ORDER BY elapsed;",
+          "description": "Post-event win probabilities from the frozen calibrated model. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+          "tables_used": [
+            "game_states",
+            "outputs/model.joblib"
+          ],
+          "executed_at": "2026-10-03T10:07:42.265023+00:00"
+        }
+      },
+      {
+        "id": "season_eval",
+        "label": "Retrospective preseason checks",
+        "path": "queries/season_eval.sql",
+        "query": {
+          "language": "sql",
+          "engine": "SQLite",
+          "sql": "SELECT CAST(season AS TEXT) AS season,\n AVG(ABS(expected_points-actual_points)) AS points_mae,\n AVG((p_playoffs-actual_playoffs)*(p_playoffs-actual_playoffs)) AS playoff_brier,\n 0.25 AS playoff_baseline,\n AVG((p_cup-actual_cup)*(p_cup-actual_cup)) AS cup_brier,\n 31.0/1024.0 AS cup_baseline\n FROM season_predictions GROUP BY season ORDER BY season;",
+          "description": "Three rolling-origin season checks; revision followed baseline review. Outcomes within each season are dependent. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+          "tables_used": [
+            "season_predictions"
+          ],
+          "executed_at": "2026-10-03T10:07:42.265023+00:00"
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "id": "intro",
+        "type": "markdown",
+        "body": "# Leafs Lab\n\nFrom the September 30 game to a testable forecasting project. Season snapshot: 2026-10-03."
+      },
+      {
+        "id": "game_headline",
+        "type": "metric-strip",
+        "cardIds": [
+          "game_p",
+          "accuracy",
+          "brier"
+        ]
+      },
+      {
+        "id": "game_guardrail",
+        "type": "markdown",
+        "sourceId": "model",
+        "body": "The calibrated model did not establish an improvement over the score/time baseline on the held-out season. Its 80\u201390% home-leading cohort also showed overconfidence. A correct prediction in one game does not validate a probability."
+      },
+      {
+        "id": "block_game_curve",
+        "type": "chart",
+        "chartId": "game_curve"
+      },
+      {
+        "id": "block_reliability",
+        "type": "chart",
+        "chartId": "reliability"
+      },
+      {
+        "id": "block_brier",
+        "type": "chart",
+        "chartId": "brier"
+      },
+      {
+        "id": "season_guardrail",
+        "type": "markdown",
+        "body": "## Experimental season forecast\n\nThe revised season model did not outperform the 50% playoff baseline in the latest retrospective season check. Cup intervals describe simulation error, not full model uncertainty."
+      },
+      {
+        "id": "headline",
+        "type": "metric-strip",
+        "cardIds": [
+          "playoffs",
+          "final",
+          "cup"
+        ]
+      },
+      {
+        "id": "block_cup",
+        "type": "chart",
+        "chartId": "cup"
+      },
+      {
+        "id": "league_table",
+        "type": "table",
+        "tableId": "teams"
+      },
+      {
+        "id": "season_table",
+        "type": "table",
+        "tableId": "season_checks"
+      },
+      {
+        "id": "limits",
+        "type": "markdown",
+        "body": "## Model limits\n\n- One latent team-strength draw per simulated season; SD estimated from training-season Elo drift, not a calibrated posterior. No explicit injury, lineup or trade adjustments.\n- Independent Poisson regulation goals; all simulated ties resolve in overtime.\n- Standings ties approximate official rules: no head-to-head tie-break.\n- Playoff game probabilities use regular-season Elo; no separate playoff fit.\n- Cup intervals show simulation error only, not forecasting/model uncertainty.\n\nGame features: score, time remaining, prior team strength, shots, skaters and goalie-pulled indicators. Calibration and feature importance describe predictions; they do not establish causality."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-10-03T10:07:42.265023+00:00",
+    "status": "ready",
+    "datasets": {
+      "toronto": [
+        {
+          "team": "TOR",
+          "elo": 1432.9878007549733,
+          "mean_points": 76.2109,
+          "points_p10": 56.0,
+          "points_p90": 97.0,
+          "playoffs": 0.1437,
+          "round_2": 0.0454,
+          "conference_final": 0.0166,
+          "final": 0.006,
+          "cup": 0.0025,
+          "cup_simulation_wins": 25
+        }
+      ],
+      "game_summary": [
+        {
+          "toronto_probability": 0.8590580369829669,
+          "accuracy": 0.7129699897594999,
+          "brier": 0.17850669702721916,
+          "baseline_brier": 0.17632895875623825
+        }
+      ],
+      "season_checks": [
+        {
+          "season": "20232024",
+          "points_mae": 9.396106249999999,
+          "playoff_brier": 0.15591404125,
+          "playoff_baseline": 0.25,
+          "cup_brier": 0.03249897,
+          "cup_baseline": 0.0302734375
+        },
+        {
+          "season": "20242025",
+          "points_mae": 10.021131249999998,
+          "playoff_brier": 0.21556553375,
+          "playoff_baseline": 0.25,
+          "cup_brier": 0.028656911874999996,
+          "cup_baseline": 0.0302734375
+        },
+        {
+          "season": "20252026",
+          "points_mae": 12.894559375,
+          "playoff_brier": 0.27145895375,
+          "playoff_baseline": 0.25,
+          "cup_brier": 0.030879290000000004,
+          "cup_baseline": 0.0302734375
+        }
+      ],
+      "teams": [
+        {
+          "team": "COL",
+          "elo": 1580.086572007077,
+          "mean_points": 107.2386,
+          "points_p10": 87.0,
+          "points_p90": 127.0,
+          "playoffs": 0.8653,
+          "round_2": 0.5565,
+          "conference_final": 0.3305,
+          "final": 0.2225,
+          "cup": 0.1147,
+          "cup_simulation_wins": 1147
+        },
+        {
+          "team": "MTL",
+          "elo": 1574.5493797304396,
+          "mean_points": 104.8126,
+          "points_p10": 84.0,
+          "points_p90": 125.0,
+          "playoffs": 0.7646,
+          "round_2": 0.4423,
+          "conference_final": 0.2387,
+          "final": 0.1366,
+          "cup": 0.0855,
+          "cup_simulation_wins": 855
+        },
+        {
+          "team": "BUF",
+          "elo": 1566.9303451376425,
+          "mean_points": 101.8138,
+          "points_p10": 81.0,
+          "points_p90": 122.0,
+          "playoffs": 0.7049,
+          "round_2": 0.3996,
+          "conference_final": 0.2203,
+          "final": 0.1232,
+          "cup": 0.0737,
+          "cup_simulation_wins": 737
+        },
+        {
+          "team": "CAR",
+          "elo": 1559.3679230775026,
+          "mean_points": 99.9717,
+          "points_p10": 79.0,
+          "points_p90": 120.0,
+          "playoffs": 0.67,
+          "round_2": 0.3916,
+          "conference_final": 0.2232,
+          "final": 0.1153,
+          "cup": 0.0709,
+          "cup_simulation_wins": 709
+        },
+        {
+          "team": "DAL",
+          "elo": 1545.9276950775325,
+          "mean_points": 98.9101,
+          "points_p10": 78.0,
+          "points_p90": 119.0,
+          "playoffs": 0.7224,
+          "round_2": 0.3872,
+          "conference_final": 0.2034,
+          "final": 0.1215,
+          "cup": 0.0579,
+          "cup_simulation_wins": 579
+        },
+        {
+          "team": "WSH",
+          "elo": 1547.537699489499,
+          "mean_points": 100.016,
+          "points_p10": 80.0,
+          "points_p90": 120.0,
+          "playoffs": 0.6721,
+          "round_2": 0.3706,
+          "conference_final": 0.1957,
+          "final": 0.0941,
+          "cup": 0.0536,
+          "cup_simulation_wins": 536
+        },
+        {
+          "team": "MIN",
+          "elo": 1539.311063815803,
+          "mean_points": 99.6149,
+          "points_p10": 79.0,
+          "points_p90": 120.0,
+          "playoffs": 0.7437,
+          "round_2": 0.3795,
+          "conference_final": 0.19,
+          "final": 0.1125,
+          "cup": 0.0529,
+          "cup_simulation_wins": 529
+        },
+        {
+          "team": "OTT",
+          "elo": 1545.0280402380445,
+          "mean_points": 98.4909,
+          "points_p10": 77.0,
+          "points_p90": 119.0,
+          "playoffs": 0.6232,
+          "round_2": 0.3254,
+          "conference_final": 0.1591,
+          "final": 0.0872,
+          "cup": 0.0483,
+          "cup_simulation_wins": 483
+        },
+        {
+          "team": "BOS",
+          "elo": 1538.0849710814375,
+          "mean_points": 98.7921,
+          "points_p10": 78.0,
+          "points_p90": 119.0,
+          "playoffs": 0.6333,
+          "round_2": 0.3083,
+          "conference_final": 0.1528,
+          "final": 0.0814,
+          "cup": 0.0447,
+          "cup_simulation_wins": 447
+        },
+        {
+          "team": "STL",
+          "elo": 1530.4963295557527,
+          "mean_points": 98.3648,
+          "points_p10": 78.0,
+          "points_p90": 118.10000000000036,
+          "playoffs": 0.7112,
+          "round_2": 0.3504,
+          "conference_final": 0.1708,
+          "final": 0.0992,
+          "cup": 0.0443,
+          "cup_simulation_wins": 443
+        },
+        {
+          "team": "TBL",
+          "elo": 1542.692530834141,
+          "mean_points": 97.4407,
+          "points_p10": 77.0,
+          "points_p90": 117.0,
+          "playoffs": 0.6018,
+          "round_2": 0.3008,
+          "conference_final": 0.1524,
+          "final": 0.0792,
+          "cup": 0.0437,
+          "cup_simulation_wins": 437
+        },
+        {
+          "team": "UTA",
+          "elo": 1515.6332049453474,
+          "mean_points": 94.7873,
+          "points_p10": 74.0,
+          "points_p90": 115.0,
+          "playoffs": 0.6255,
+          "round_2": 0.285,
+          "conference_final": 0.1375,
+          "final": 0.0765,
+          "cup": 0.0358,
+          "cup_simulation_wins": 358
+        },
+        {
+          "team": "ANA",
+          "elo": 1495.3207573682384,
+          "mean_points": 92.0833,
+          "points_p10": 71.0,
+          "points_p90": 113.0,
+          "playoffs": 0.617,
+          "round_2": 0.3264,
+          "conference_final": 0.1644,
+          "final": 0.0667,
+          "cup": 0.0271,
+          "cup_simulation_wins": 271
+        },
+        {
+          "team": "PHI",
+          "elo": 1518.3926203276894,
+          "mean_points": 92.2382,
+          "points_p10": 71.0,
+          "points_p90": 113.0,
+          "playoffs": 0.4809,
+          "round_2": 0.2328,
+          "conference_final": 0.1136,
+          "final": 0.0499,
+          "cup": 0.0261,
+          "cup_simulation_wins": 261
+        },
+        {
+          "team": "PIT",
+          "elo": 1515.5541931442663,
+          "mean_points": 94.0708,
+          "points_p10": 73.0,
+          "points_p90": 115.0,
+          "playoffs": 0.5251,
+          "round_2": 0.2463,
+          "conference_final": 0.114,
+          "final": 0.0504,
+          "cup": 0.0258,
+          "cup_simulation_wins": 258
+        },
+        {
+          "team": "NJD",
+          "elo": 1509.7243881102997,
+          "mean_points": 92.7295,
+          "points_p10": 72.0,
+          "points_p90": 113.0,
+          "playoffs": 0.4859,
+          "round_2": 0.2278,
+          "conference_final": 0.108,
+          "final": 0.0472,
+          "cup": 0.0238,
+          "cup_simulation_wins": 238
+        },
+        {
+          "team": "EDM",
+          "elo": 1498.509564088246,
+          "mean_points": 91.8623,
+          "points_p10": 71.0,
+          "points_p90": 112.0,
+          "playoffs": 0.6119,
+          "round_2": 0.3286,
+          "conference_final": 0.1702,
+          "final": 0.0613,
+          "cup": 0.0224,
+          "cup_simulation_wins": 224
+        },
+        {
+          "team": "VGK",
+          "elo": 1488.8478789841145,
+          "mean_points": 89.1065,
+          "points_p10": 68.0,
+          "points_p90": 110.0,
+          "playoffs": 0.5459,
+          "round_2": 0.29,
+          "conference_final": 0.1442,
+          "final": 0.0564,
+          "cup": 0.0221,
+          "cup_simulation_wins": 221
+        },
+        {
+          "team": "CBJ",
+          "elo": 1504.8727240453481,
+          "mean_points": 91.685,
+          "points_p10": 71.0,
+          "points_p90": 112.0,
+          "playoffs": 0.4659,
+          "round_2": 0.2152,
+          "conference_final": 0.0974,
+          "final": 0.0425,
+          "cup": 0.0216,
+          "cup_simulation_wins": 216
+        },
+        {
+          "team": "SJS",
+          "elo": 1478.0052893112038,
+          "mean_points": 88.247,
+          "points_p10": 68.0,
+          "points_p90": 109.0,
+          "playoffs": 0.5197,
+          "round_2": 0.2564,
+          "conference_final": 0.1229,
+          "final": 0.0467,
+          "cup": 0.0155,
+          "cup_simulation_wins": 155
+        },
+        {
+          "team": "FLA",
+          "elo": 1496.526756392022,
+          "mean_points": 90.0156,
+          "points_p10": 69.0,
+          "points_p90": 111.0,
+          "playoffs": 0.4115,
+          "round_2": 0.1704,
+          "conference_final": 0.0717,
+          "final": 0.0315,
+          "cup": 0.0143,
+          "cup_simulation_wins": 143
+        },
+        {
+          "team": "NSH",
+          "elo": 1473.1894197967724,
+          "mean_points": 84.6405,
+          "points_p10": 64.0,
+          "points_p90": 105.0,
+          "playoffs": 0.3772,
+          "round_2": 0.1449,
+          "conference_final": 0.0675,
+          "final": 0.0296,
+          "cup": 0.0109,
+          "cup_simulation_wins": 109
+        },
+        {
+          "team": "NYI",
+          "elo": 1480.3439374921275,
+          "mean_points": 84.4376,
+          "points_p10": 64.0,
+          "points_p90": 105.0,
+          "playoffs": 0.2919,
+          "round_2": 0.1198,
+          "conference_final": 0.0518,
+          "final": 0.021,
+          "cup": 0.01,
+          "cup_simulation_wins": 100
+        },
+        {
+          "team": "WPG",
+          "elo": 1461.368636870452,
+          "mean_points": 83.6235,
+          "points_p10": 63.0,
+          "points_p90": 104.0,
+          "playoffs": 0.3534,
+          "round_2": 0.1303,
+          "conference_final": 0.0576,
+          "final": 0.027,
+          "cup": 0.0099,
+          "cup_simulation_wins": 99
+        },
+        {
+          "team": "NYR",
+          "elo": 1472.8715610179281,
+          "mean_points": 85.1428,
+          "points_p10": 65.0,
+          "points_p90": 106.0,
+          "playoffs": 0.3142,
+          "round_2": 0.1253,
+          "conference_final": 0.0495,
+          "final": 0.0194,
+          "cup": 0.0094,
+          "cup_simulation_wins": 94
+        },
+        {
+          "team": "CGY",
+          "elo": 1453.6522129208877,
+          "mean_points": 81.0644,
+          "points_p10": 61.0,
+          "points_p90": 102.0,
+          "playoffs": 0.346,
+          "round_2": 0.1601,
+          "conference_final": 0.0701,
+          "final": 0.0241,
+          "cup": 0.0086,
+          "cup_simulation_wins": 86
+        },
+        {
+          "team": "LAK",
+          "elo": 1459.9353163378587,
+          "mean_points": 82.8532,
+          "points_p10": 62.0,
+          "points_p90": 104.0,
+          "playoffs": 0.3887,
+          "round_2": 0.1814,
+          "conference_final": 0.0813,
+          "final": 0.0285,
+          "cup": 0.0085,
+          "cup_simulation_wins": 85
+        },
+        {
+          "team": "SEA",
+          "elo": 1443.5617547340037,
+          "mean_points": 81.2762,
+          "points_p10": 61.0,
+          "points_p90": 102.0,
+          "playoffs": 0.3448,
+          "round_2": 0.1476,
+          "conference_final": 0.0622,
+          "final": 0.0191,
+          "cup": 0.007,
+          "cup_simulation_wins": 70
+        },
+        {
+          "team": "DET",
+          "elo": 1460.1988068106334,
+          "mean_points": 80.4868,
+          "points_p10": 59.0,
+          "points_p90": 101.0,
+          "playoffs": 0.211,
+          "round_2": 0.0784,
+          "conference_final": 0.0352,
+          "final": 0.0151,
+          "cup": 0.0062,
+          "cup_simulation_wins": 62
+        },
+        {
+          "team": "TOR",
+          "elo": 1432.9878007549733,
+          "mean_points": 76.2109,
+          "points_p10": 56.0,
+          "points_p90": 97.0,
+          "playoffs": 0.1437,
+          "round_2": 0.0454,
+          "conference_final": 0.0166,
+          "final": 0.006,
+          "cup": 0.0025,
+          "cup_simulation_wins": 25
+        },
+        {
+          "team": "VAN",
+          "elo": 1392.4427686531299,
+          "mean_points": 70.2564,
+          "points_p10": 50.0,
+          "points_p90": 90.0,
+          "playoffs": 0.1371,
+          "round_2": 0.0512,
+          "conference_final": 0.0184,
+          "final": 0.005,
+          "cup": 0.0012,
+          "cup_simulation_wins": 12
+        },
+        {
+          "team": "CHI",
+          "elo": 1393.9486050192054,
+          "mean_points": 68.0556,
+          "points_p10": 48.0,
+          "points_p90": 88.0,
+          "playoffs": 0.0902,
+          "round_2": 0.0245,
+          "conference_final": 0.009,
+          "final": 0.0034,
+          "cup": 0.0011,
+          "cup_simulation_wins": 11
+        }
+      ],
+      "cup_comparison": [
+        {
+          "team": "COL",
+          "elo": 1580.086572007077,
+          "mean_points": 107.2386,
+          "points_p10": 87.0,
+          "points_p90": 127.0,
+          "playoffs": 0.8653,
+          "round_2": 0.5565,
+          "conference_final": 0.3305,
+          "final": 0.2225,
+          "cup": 0.1147,
+          "cup_simulation_wins": 1147
+        },
+        {
+          "team": "MTL",
+          "elo": 1574.5493797304396,
+          "mean_points": 104.8126,
+          "points_p10": 84.0,
+          "points_p90": 125.0,
+          "playoffs": 0.7646,
+          "round_2": 0.4423,
+          "conference_final": 0.2387,
+          "final": 0.1366,
+          "cup": 0.0855,
+          "cup_simulation_wins": 855
+        },
+        {
+          "team": "BUF",
+          "elo": 1566.9303451376425,
+          "mean_points": 101.8138,
+          "points_p10": 81.0,
+          "points_p90": 122.0,
+          "playoffs": 0.7049,
+          "round_2": 0.3996,
+          "conference_final": 0.2203,
+          "final": 0.1232,
+          "cup": 0.0737,
+          "cup_simulation_wins": 737
+        },
+        {
+          "team": "CAR",
+          "elo": 1559.3679230775026,
+          "mean_points": 99.9717,
+          "points_p10": 79.0,
+          "points_p90": 120.0,
+          "playoffs": 0.67,
+          "round_2": 0.3916,
+          "conference_final": 0.2232,
+          "final": 0.1153,
+          "cup": 0.0709,
+          "cup_simulation_wins": 709
+        },
+        {
+          "team": "DAL",
+          "elo": 1545.9276950775325,
+          "mean_points": 98.9101,
+          "points_p10": 78.0,
+          "points_p90": 119.0,
+          "playoffs": 0.7224,
+          "round_2": 0.3872,
+          "conference_final": 0.2034,
+          "final": 0.1215,
+          "cup": 0.0579,
+          "cup_simulation_wins": 579
+        },
+        {
+          "team": "WSH",
+          "elo": 1547.537699489499,
+          "mean_points": 100.016,
+          "points_p10": 80.0,
+          "points_p90": 120.0,
+          "playoffs": 0.6721,
+          "round_2": 0.3706,
+          "conference_final": 0.1957,
+          "final": 0.0941,
+          "cup": 0.0536,
+          "cup_simulation_wins": 536
+        },
+        {
+          "team": "MIN",
+          "elo": 1539.311063815803,
+          "mean_points": 99.6149,
+          "points_p10": 79.0,
+          "points_p90": 120.0,
+          "playoffs": 0.7437,
+          "round_2": 0.3795,
+          "conference_final": 0.19,
+          "final": 0.1125,
+          "cup": 0.0529,
+          "cup_simulation_wins": 529
+        },
+        {
+          "team": "OTT",
+          "elo": 1545.0280402380445,
+          "mean_points": 98.4909,
+          "points_p10": 77.0,
+          "points_p90": 119.0,
+          "playoffs": 0.6232,
+          "round_2": 0.3254,
+          "conference_final": 0.1591,
+          "final": 0.0872,
+          "cup": 0.0483,
+          "cup_simulation_wins": 483
+        },
+        {
+          "team": "BOS",
+          "elo": 1538.0849710814375,
+          "mean_points": 98.7921,
+          "points_p10": 78.0,
+          "points_p90": 119.0,
+          "playoffs": 0.6333,
+          "round_2": 0.3083,
+          "conference_final": 0.1528,
+          "final": 0.0814,
+          "cup": 0.0447,
+          "cup_simulation_wins": 447
+        },
+        {
+          "team": "STL",
+          "elo": 1530.4963295557527,
+          "mean_points": 98.3648,
+          "points_p10": 78.0,
+          "points_p90": 118.10000000000036,
+          "playoffs": 0.7112,
+          "round_2": 0.3504,
+          "conference_final": 0.1708,
+          "final": 0.0992,
+          "cup": 0.0443,
+          "cup_simulation_wins": 443
+        },
+        {
+          "team": "TOR",
+          "elo": 1432.9878007549733,
+          "mean_points": 76.2109,
+          "points_p10": 56.0,
+          "points_p90": 97.0,
+          "playoffs": 0.1437,
+          "round_2": 0.0454,
+          "conference_final": 0.0166,
+          "final": 0.006,
+          "cup": 0.0025,
+          "cup_simulation_wins": 25
+        }
+      ],
+      "game": [
+        {
+          "minute": 0.0,
+          "toronto_probability": 0.5035128647626602,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.36666666666666664,
+          "toronto_probability": 0.5034367180244566,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.4,
+          "toronto_probability": 0.5034297955857523,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.45,
+          "toronto_probability": 0.5024670234391279,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.5333333333333333,
+          "toronto_probability": 0.5024497169447479,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.55,
+          "toronto_probability": 0.5014938489433215,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.5833333333333334,
+          "toronto_probability": 0.5014869262397246,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 0.7833333333333333,
+          "toronto_probability": 0.5014453900062646,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 1.0833333333333333,
+          "toronto_probability": 0.5004306672643783,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 1.7166666666666666,
+          "toronto_probability": 0.5002991347981807,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 2.066666666666667,
+          "toronto_probability": 0.4992740245347806,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 2.0833333333333335,
+          "toronto_probability": 0.49927056315955964,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 2.35,
+          "toronto_probability": 0.49921518116575864,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 2.65,
+          "toronto_probability": 0.4991528764458188,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 2.95,
+          "toronto_probability": 0.4990905717521866,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 3.0166666666666666,
+          "toronto_probability": 0.49907672626848004,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 3.2666666666666666,
+          "toronto_probability": 0.4990248057173643,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 3.75,
+          "toronto_probability": 0.4989244260458296,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 3.9833333333333334,
+          "toronto_probability": 0.49887596692458575,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 4.166666666666667,
+          "toronto_probability": 0.49883789191551947,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 4.316666666666666,
+          "toronto_probability": 0.49880673964537936,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 4.566666666666666,
+          "toronto_probability": 0.4987548192158525,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 5.033333333333333,
+          "toronto_probability": 0.4986579011534488,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 5.35,
+          "toronto_probability": 0.4985921353823819,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 6.0,
+          "toronto_probability": 0.49845714263899676,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 6.25,
+          "toronto_probability": 0.4984052224118962,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 6.4,
+          "toronto_probability": 0.4983740702920726,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 6.533333333333333,
+          "toronto_probability": 0.4983463795294859,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 6.9,
+          "toronto_probability": 0.49827022998518733,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.033333333333333,
+          "toronto_probability": 0.4982425392615158,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.066666666666666,
+          "toronto_probability": 0.49918803174814197,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.083333333333333,
+          "toronto_probability": 0.4991845703747562,
+          "home_goals": 0,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.233333333333333,
+          "toronto_probability": 0.6745652124555966,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.683333333333334,
+          "toronto_probability": 0.6750407986744935,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.783333333333333,
+          "toronto_probability": 0.6751473856369883,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.8,
+          "toronto_probability": 0.6751651822505781,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 7.883333333333334,
+          "toronto_probability": 0.6752543033744391,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 8.25,
+          "toronto_probability": 0.675649188441272,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 8.5,
+          "toronto_probability": 0.67675498492071,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 8.533333333333333,
+          "toronto_probability": 0.6767913417126646,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 8.766666666666667,
+          "toronto_probability": 0.6770469040739875,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.1,
+          "toronto_probability": 0.6765821848905418,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.133333333333333,
+          "toronto_probability": 0.676619282816591,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.366666666666667,
+          "toronto_probability": 0.6760462729451948,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.55,
+          "toronto_probability": 0.6762528034627493,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.633333333333333,
+          "toronto_probability": 0.6763470783574633,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 9.7,
+          "toronto_probability": 0.6764226779904541,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 10.016666666666667,
+          "toronto_probability": 0.690637002435614,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 10.85,
+          "toronto_probability": 0.6915828532673246,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.066666666666666,
+          "toronto_probability": 0.6918329369074782,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.45,
+          "toronto_probability": 0.6922796934396919,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.783333333333333,
+          "toronto_probability": 0.6926727089503287,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.816666666666666,
+          "toronto_probability": 0.69271224504225,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.883333333333333,
+          "toronto_probability": 0.6936016712091936,
+          "home_goals": 1,
+          "away_goals": 0
+        },
+        {
+          "minute": 11.916666666666666,
+          "toronto_probability": 0.8195849099131198,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.283333333333333,
+          "toronto_probability": 0.8202395457018617,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.366666666666667,
+          "toronto_probability": 0.8203891565941954,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.466666666666667,
+          "toronto_probability": 0.8205690981973432,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.566666666666666,
+          "toronto_probability": 0.8201883217067371,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.616666666666667,
+          "toronto_probability": 0.8202789052905828,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 12.783333333333333,
+          "toronto_probability": 0.8205816661428922,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 13.066666666666666,
+          "toronto_probability": 0.8210992570131115,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 13.15,
+          "toronto_probability": 0.8212521885824826,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 13.716666666666667,
+          "toronto_probability": 0.8228566439289127,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 13.866666666666667,
+          "toronto_probability": 0.8236899454666392,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 13.9,
+          "toronto_probability": 0.8237520156045937,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 14.0,
+          "toronto_probability": 0.8233852098282093,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 14.933333333333334,
+          "toronto_probability": 0.8251534731604597,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 15.383333333333333,
+          "toronto_probability": 0.8129661288319475,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 15.416666666666666,
+          "toronto_probability": 0.835622950117423,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 15.75,
+          "toronto_probability": 0.8357218391835417,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 16.666666666666668,
+          "toronto_probability": 0.8379803033202478,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 16.683333333333334,
+          "toronto_probability": 0.8380122501468027,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 16.816666666666666,
+          "toronto_probability": 0.8382683218853484,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 16.9,
+          "toronto_probability": 0.8384288168667519,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.216666666666665,
+          "toronto_probability": 0.839041877545104,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.333333333333332,
+          "toronto_probability": 0.8392690196206273,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.416666666666668,
+          "toronto_probability": 0.8311426974670484,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.516666666666666,
+          "toronto_probability": 0.8313464393447093,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.566666666666666,
+          "toronto_probability": 0.8314485121867331,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 17.916666666666668,
+          "toronto_probability": 0.8321668158061654,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 18.566666666666666,
+          "toronto_probability": 0.8335186681488823,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 18.7,
+          "toronto_probability": 0.8337988843663194,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 18.716666666666665,
+          "toronto_probability": 0.8338339818679007,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 18.75,
+          "toronto_probability": 0.8339042239689662,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 18.95,
+          "toronto_probability": 0.8343269997290551,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 19.466666666666665,
+          "toronto_probability": 0.8354297751580282,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 19.583333333333332,
+          "toronto_probability": 0.8351571198964354,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 19.766666666666666,
+          "toronto_probability": 0.8355544153090079,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 19.9,
+          "toronto_probability": 0.8353212148909431,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 19.95,
+          "toronto_probability": 0.8354305875704838,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 20.0,
+          "toronto_probability": 0.8355401096667374,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 20.316666666666666,
+          "toronto_probability": 0.8362372391359382,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 20.883333333333333,
+          "toronto_probability": 0.8369808289744965,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 21.983333333333334,
+          "toronto_probability": 0.8394958431319174,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 22.15,
+          "toronto_probability": 0.8398837012868439,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 22.4,
+          "toronto_probability": 0.8404689129970417,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 22.5,
+          "toronto_probability": 0.840704156672367,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.116666666666667,
+          "toronto_probability": 0.8421696613758882,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.283333333333335,
+          "toronto_probability": 0.8425701813417888,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.45,
+          "toronto_probability": 0.8429726152295279,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.483333333333334,
+          "toronto_probability": 0.8430533328786309,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.683333333333334,
+          "toronto_probability": 0.8348962701697642,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 23.933333333333334,
+          "toronto_probability": 0.8355348170137283,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 25.066666666666666,
+          "toronto_probability": 0.8384889813522526,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 26.433333333333334,
+          "toronto_probability": 0.8500308975803655,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 26.616666666666667,
+          "toronto_probability": 0.8500327791520609,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 26.65,
+          "toronto_probability": 0.8496357706745292,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 26.683333333333334,
+          "toronto_probability": 0.8497251473400718,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 26.983333333333334,
+          "toronto_probability": 0.850533589726538,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 27.35,
+          "toronto_probability": 0.8515316961020595,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.05,
+          "toronto_probability": 0.8529913010267942,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.083333333333332,
+          "toronto_probability": 0.8530848144167631,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.233333333333334,
+          "toronto_probability": 0.8535068130749348,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.25,
+          "toronto_probability": 0.8535538222204021,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.266666666666666,
+          "toronto_probability": 0.8540762974827004,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.3,
+          "toronto_probability": 0.8541701830947169,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.416666666666668,
+          "toronto_probability": 0.8544995435232702,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.45,
+          "toronto_probability": 0.855066629128665,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.483333333333334,
+          "toronto_probability": 0.8551607922740889,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 28.583333333333332,
+          "toronto_probability": 0.8473394748878409,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 29.516666666666666,
+          "toronto_probability": 0.850148452546255,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 29.7,
+          "toronto_probability": 0.8507100231773765,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 29.8,
+          "toronto_probability": 0.8510177176039079,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 30.05,
+          "toronto_probability": 0.8517912610115073,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 30.1,
+          "toronto_probability": 0.8519467127333915,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 30.65,
+          "toronto_probability": 0.8610411544524259,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 31.15,
+          "toronto_probability": 0.8625701083591046,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 31.566666666666666,
+          "toronto_probability": 0.8643105486630783,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 31.733333333333334,
+          "toronto_probability": 0.8648312057064795,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 31.833333333333332,
+          "toronto_probability": 0.8646998601698368,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 31.933333333333334,
+          "toronto_probability": 0.8650155028372597,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 32.06666666666667,
+          "toronto_probability": 0.8649936845619492,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 32.2,
+          "toronto_probability": 0.8654191643254769,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 32.4,
+          "toronto_probability": 0.8660608709580743,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 32.63333333333333,
+          "toronto_probability": 0.86681486502499,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 32.96666666666667,
+          "toronto_probability": 0.8683382518896032,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 33.03333333333333,
+          "toronto_probability": 0.8685565227752493,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 33.36666666666667,
+          "toronto_probability": 0.8700863706347,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 33.916666666666664,
+          "toronto_probability": 0.8719207202675863,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.06666666666667,
+          "toronto_probability": 0.8724268726119517,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.35,
+          "toronto_probability": 0.8733899168816973,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.36666666666667,
+          "toronto_probability": 0.8734468528014782,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.55,
+          "toronto_probability": 0.8744939897089563,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.88333333333333,
+          "toronto_probability": 0.8756432893629144,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 34.96666666666667,
+          "toronto_probability": 0.8759326470149595,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 35.1,
+          "toronto_probability": 0.8768094186195353,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 36.18333333333333,
+          "toronto_probability": 0.8810531546867887,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 36.2,
+          "toronto_probability": 0.8815117367523452,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 36.233333333333334,
+          "toronto_probability": 0.8816316636648189,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 36.833333333333336,
+          "toronto_probability": 0.8838141385379059,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 36.9,
+          "toronto_probability": 0.8840594496516782,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 37.2,
+          "toronto_probability": 0.8851704226118823,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 37.45,
+          "toronto_probability": 0.8864890814276853,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 37.583333333333336,
+          "toronto_probability": 0.8869894887144878,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 37.6,
+          "toronto_probability": 0.8870522041803858,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 38.2,
+          "toronto_probability": 0.8803422427424566,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 38.233333333333334,
+          "toronto_probability": 0.8959621475269122,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 38.516666666666666,
+          "toronto_probability": 0.8970011741001269,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 39.333333333333336,
+          "toronto_probability": 0.9000543545955585,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 39.46666666666667,
+          "toronto_probability": 0.9009018567001136,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 39.5,
+          "toronto_probability": 0.9010285579960281,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 39.766666666666666,
+          "toronto_probability": 0.9020475581272823,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 39.833333333333336,
+          "toronto_probability": 0.9023038136654742,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.0,
+          "toronto_probability": 0.9029471071231683,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.11666666666667,
+          "toronto_probability": 0.9033996808855483,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.28333333333333,
+          "toronto_probability": 0.8983462924634108,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.45,
+          "toronto_probability": 0.8990344665388991,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.5,
+          "toronto_probability": 0.8992417281558489,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.75,
+          "toronto_probability": 0.9002836793642679,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 40.78333333333333,
+          "toronto_probability": 0.9007643806633124,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 41.583333333333336,
+          "toronto_probability": 0.9041565848688659,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 41.95,
+          "toronto_probability": 0.9057446712443669,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 42.13333333333333,
+          "toronto_probability": 0.9065467236003762,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 42.18333333333333,
+          "toronto_probability": 0.9067663997065899,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.083333333333336,
+          "toronto_probability": 0.9110991980648044,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.11666666666667,
+          "toronto_probability": 0.9112503166935113,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.25,
+          "toronto_probability": 0.9118566418140112,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.38333333333333,
+          "toronto_probability": 0.912465939288834,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.63333333333333,
+          "toronto_probability": 0.913315295679201,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 43.666666666666664,
+          "toronto_probability": 0.9134699806684295,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.03333333333333,
+          "toronto_probability": 0.9151840704792252,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.18333333333333,
+          "toronto_probability": 0.9158919665192053,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.28333333333333,
+          "toronto_probability": 0.9163660666432626,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.416666666666664,
+          "toronto_probability": 0.9170009115295661,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.46666666666667,
+          "toronto_probability": 0.9172397797539449,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.75,
+          "toronto_probability": 0.9186016646931222,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 44.833333333333336,
+          "toronto_probability": 0.9190049155874381,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 45.18333333333333,
+          "toronto_probability": 0.9207120506368534,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 45.516666666666666,
+          "toronto_probability": 0.9223582873340865,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.06666666666667,
+          "toronto_probability": 0.9251185388721742,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.11666666666667,
+          "toronto_probability": 0.925372204818338,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.333333333333336,
+          "toronto_probability": 0.9264767182948972,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.63333333333333,
+          "toronto_probability": 0.9277653966395348,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.916666666666664,
+          "toronto_probability": 0.9292432899551616,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 46.983333333333334,
+          "toronto_probability": 0.9252828191663626,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 47.21666666666667,
+          "toronto_probability": 0.92658343558476,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 47.31666666666667,
+          "toronto_probability": 0.9268864331182979,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 47.56666666666667,
+          "toronto_probability": 0.9283017121996117,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 47.7,
+          "toronto_probability": 0.9290616886677752,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 47.78333333333333,
+          "toronto_probability": 0.9295384971665672,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 49.016666666666666,
+          "toronto_probability": 0.9402357873060391,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 49.06666666666667,
+          "toronto_probability": 0.9405194895347577,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 49.53333333333333,
+          "toronto_probability": 0.9431892796939845,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 50.666666666666664,
+          "toronto_probability": 0.949832135719961,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 50.8,
+          "toronto_probability": 0.9506277208879004,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 50.833333333333336,
+          "toronto_probability": 0.9477435605012198,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 50.95,
+          "toronto_probability": 0.9484840580231658,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 51.13333333333333,
+          "toronto_probability": 0.949652293493387,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 51.166666666666664,
+          "toronto_probability": 0.9498652923300522,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 51.53333333333333,
+          "toronto_probability": 0.9520462437662789,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 52.38333333333333,
+          "toronto_probability": 0.9575975721455899,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 52.43333333333333,
+          "toronto_probability": 0.9579269349122044,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 52.61666666666667,
+          "toronto_probability": 0.9591368731123286,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 53.0,
+          "toronto_probability": 0.9639695092181142,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 53.516666666666666,
+          "toronto_probability": 0.9641603145819695,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 53.53333333333333,
+          "toronto_probability": 0.9692809937995036,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 53.75,
+          "toronto_probability": 0.9706717258131748,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 53.78333333333333,
+          "toronto_probability": 0.9708682708571555,
+          "home_goals": 2,
+          "away_goals": 0
+        },
+        {
+          "minute": 54.15,
+          "toronto_probability": 0.8590580369829669,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 54.93333333333333,
+          "toronto_probability": 0.8702041112097105,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 55.36666666666667,
+          "toronto_probability": 0.8772895447704662,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 55.9,
+          "toronto_probability": 0.8794047964118147,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 56.0,
+          "toronto_probability": 0.881203957493722,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 56.06666666666667,
+          "toronto_probability": 0.8824176695325369,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 56.13333333333333,
+          "toronto_probability": 0.8836429695491181,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 56.2,
+          "toronto_probability": 0.8848800051995545,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 56.5,
+          "toronto_probability": 0.890595893404265,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 57.233333333333334,
+          "toronto_probability": 0.9056662678655775,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 57.35,
+          "toronto_probability": 0.908216883118721,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 57.416666666666664,
+          "toronto_probability": 0.9096940914088657,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 57.46666666666667,
+          "toronto_probability": 0.9108114977189365,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 57.733333333333334,
+          "toronto_probability": 0.9169104487813773,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 58.016666666666666,
+          "toronto_probability": 0.8978973191671475,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 58.45,
+          "toronto_probability": 0.9120413840920556,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 58.55,
+          "toronto_probability": 0.9154378792319086,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 58.81666666666667,
+          "toronto_probability": 0.9247300293347727,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 58.95,
+          "toronto_probability": 0.9294980278995256,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 59.31666666666667,
+          "toronto_probability": 0.9427655876284615,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 59.333333333333336,
+          "toronto_probability": 0.9431867622727942,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 59.43333333333333,
+          "toronto_probability": 0.9469637144841057,
+          "home_goals": 2,
+          "away_goals": 1
+        },
+        {
+          "minute": 59.78333333333333,
+          "toronto_probability": 0.9602811524441741,
+          "home_goals": 2,
+          "away_goals": 1
+        }
+      ],
+      "models": [
+        {
+          "model": "selected_calibrated",
+          "brier": 0.17850669702721916,
+          "accuracy": 0.7129699897594999
+        },
+        {
+          "model": "baseline",
+          "brier": 0.17632895875623825,
+          "accuracy": 0.7064054493379289
+        },
+        {
+          "model": "selected_raw",
+          "brier": 0.17699955342280546,
+          "accuracy": 0.7073807492882084
+        },
+        {
+          "model": "pregame_only",
+          "brier": 0.2518796285212596,
+          "accuracy": 0.5388719512195124
+        },
+        {
+          "model": "constant_50_percent",
+          "brier": 0.25,
+          "accuracy": 0.5221036585365854
+        }
+      ],
+      "calibration": [
+        {
+          "bin": 0,
+          "mean_prediction": 0.037299444329760845,
+          "observed_rate": 0.03954336740859064,
+          "games": 537,
+          "states": 26418
+        },
+        {
+          "bin": 1,
+          "mean_prediction": 0.15016401419224698,
+          "observed_rate": 0.14580799108201833,
+          "games": 578,
+          "states": 18784
+        },
+        {
+          "bin": 2,
+          "mean_prediction": 0.2510129263979187,
+          "observed_rate": 0.2562219206679058,
+          "games": 570,
+          "states": 19397
+        },
+        {
+          "bin": 3,
+          "mean_prediction": 0.3501905643542806,
+          "observed_rate": 0.31114441900073825,
+          "games": 614,
+          "states": 25516
+        },
+        {
+          "bin": 4,
+          "mean_prediction": 0.45554873921678246,
+          "observed_rate": 0.42535604110902925,
+          "games": 590,
+          "states": 29192
+        },
+        {
+          "bin": 5,
+          "mean_prediction": 0.5526147479169717,
+          "observed_rate": 0.5071584124231298,
+          "games": 862,
+          "states": 57128
+        },
+        {
+          "bin": 6,
+          "mean_prediction": 0.6447063961618363,
+          "observed_rate": 0.559310951178881,
+          "games": 687,
+          "states": 39791
+        },
+        {
+          "bin": 7,
+          "mean_prediction": 0.7519675672855376,
+          "observed_rate": 0.690315845817287,
+          "games": 729,
+          "states": 33483
+        },
+        {
+          "bin": 8,
+          "mean_prediction": 0.8499189246178084,
+          "observed_rate": 0.8116542842646836,
+          "games": 680,
+          "states": 28803
+        },
+        {
+          "bin": 9,
+          "mean_prediction": 0.9613226443792546,
+          "observed_rate": 0.9634045925435696,
+          "games": 616,
+          "states": 42612
+        }
+      ]
+    },
+    "accessIssues": []
+  },
+  "sources": [
+    {
+      "id": "model",
+      "label": "Held-out NHL game-model evaluation",
+      "path": "queries/model.sql",
+      "query": {
+        "language": "sql",
+        "engine": "SQLite",
+        "sql": "SELECT 'selected_calibrated' AS model,\n SUM(weight*(prediction-home_win)*(prediction-home_win))/SUM(weight) AS brier,\n SUM(weight*CASE WHEN (prediction>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) AS accuracy\n FROM test_predictions\n UNION ALL SELECT 'baseline',SUM(weight*(baseline-home_win)*(baseline-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (baseline>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'selected_raw',SUM(weight*(raw_prediction-home_win)*(raw_prediction-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (raw_prediction>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'pregame_only',SUM(weight*(pregame_probability-home_win)*(pregame_probability-home_win))/SUM(weight),\n SUM(weight*CASE WHEN (pregame_probability>=0.5)=home_win THEN 1.0 ELSE 0.0 END)/SUM(weight) FROM test_predictions\n UNION ALL SELECT 'constant_50_percent',SUM(weight*(0.5-home_win)*(0.5-home_win))/SUM(weight),\n SUM(weight*home_win)/SUM(weight) FROM test_predictions;\n\nSELECT MIN(9,CAST(prediction*10 AS INTEGER)) AS bin,\n SUM(weight*prediction)/SUM(weight) AS mean_prediction,\n SUM(weight*home_win)/SUM(weight) AS observed_rate,\n COUNT(DISTINCT game_id) AS games, COUNT(*) AS states\n FROM test_predictions GROUP BY bin ORDER BY bin;",
+        "description": "Frozen test-season evaluation. Equal total weight per game. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+        "tables_used": [
+          "test_predictions"
+        ],
+        "filters": {
+          "test_season": 20252026,
+          "regulation_only": true,
+          "terminal_states_excluded": true
+        },
+        "executed_at": "2026-10-03T10:07:42.265023+00:00"
+      }
+    },
+    {
+      "id": "forecast",
+      "label": "Schedule and standings Monte Carlo",
+      "path": "queries/forecast.sql",
+      "query": {
+        "language": "sql",
+        "engine": "SQLite",
+        "sql": "SELECT team,elo,points_sum*1.0/simulations AS mean_points,\n points_p10,points_p90,playoffs_count*1.0/simulations AS playoffs,\n round_2_count*1.0/simulations AS round_2,\n conference_final_count*1.0/simulations AS conference_final,\n final_count*1.0/simulations AS final,\n cup_count*1.0/simulations AS cup, cup_count AS cup_simulation_wins\n FROM forecast_counts ORDER BY cup DESC,team;",
+        "description": "Fixed-strength remaining-season and playoff simulation. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+        "tables_used": [
+          "forecast_counts"
+        ],
+        "filters": {
+          "as_of": "2026-10-03",
+          "simulations": 10000
+        },
+        "executed_at": "2026-10-03T10:07:42.265023+00:00"
+      }
+    },
+    {
+      "id": "game",
+      "label": "Toronto game reconstruction",
+      "path": "queries/game.sql",
+      "query": {
+        "language": "sql",
+        "engine": "SQLite with Python model UDF",
+        "sql": "SELECT elapsed/60.0 AS minute,\n CASE WHEN home='TOR' THEN\n home_win_probability(goal_diff,remaining,score_clock,pregame_logit,shot_diff,skater_diff,home_empty,away_empty,situation_missing)\n ELSE 1.0-home_win_probability(goal_diff,remaining,score_clock,pregame_logit,shot_diff,skater_diff,home_empty,away_empty,situation_missing)\n END AS toronto_probability, home_goals, away_goals\n FROM game_states ORDER BY elapsed;",
+        "description": "Post-event win probabilities from the frozen calibrated model. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+        "tables_used": [
+          "game_states",
+          "outputs/model.joblib"
+        ],
+        "executed_at": "2026-10-03T10:07:42.265023+00:00"
+      }
+    },
+    {
+      "id": "season_eval",
+      "label": "Retrospective preseason checks",
+      "path": "queries/season_eval.sql",
+      "query": {
+        "language": "sql",
+        "engine": "SQLite",
+        "sql": "SELECT CAST(season AS TEXT) AS season,\n AVG(ABS(expected_points-actual_points)) AS points_mae,\n AVG((p_playoffs-actual_playoffs)*(p_playoffs-actual_playoffs)) AS playoff_brier,\n 0.25 AS playoff_baseline,\n AVG((p_cup-actual_cup)*(p_cup-actual_cup)) AS cup_brier,\n 31.0/1024.0 AS cup_baseline\n FROM season_predictions GROUP BY season ORDER BY season;",
+        "description": "Three rolling-origin season checks; revision followed baseline review. Outcomes within each season are dependent. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+        "tables_used": [
+          "season_predictions"
+        ],
+        "executed_at": "2026-10-03T10:07:42.265023+00:00"
+      }
+    }
+  ]
+}

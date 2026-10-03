@@ -1,0 +1,68 @@
+{
+  "game_id": 2026020008,
+  "date": "2026-09-30",
+  "home": "TOR",
+  "away": "NYI",
+  "first_2_1_state": {
+    "game_id": 2026020008,
+    "season": 20262027,
+    "date": "2026-09-30",
+    "home": "TOR",
+    "away": "NYI",
+    "elapsed": 3249,
+    "event": "faceoff",
+    "home_goals": 2,
+    "away_goals": 1,
+    "goal_diff": 1,
+    "remaining": 0.0975,
+    "shot_diff": 0,
+    "skater_diff": 1,
+    "home_empty": 0,
+    "away_empty": 0,
+    "situation_missing": 0,
+    "pregame_logit": -0.1365399510187003,
+    "home_win": 1,
+    "goal_at_second": 1,
+    "score_clock": 2.857142857142857,
+    "weight": 0.004132231404958678,
+    "home_probability": 0.8590580369829669,
+    "toronto_probability": 0.8590580369829669
+  },
+  "explanation": {
+    "home_win_probability": 0.8590580369829669,
+    "contrasts": [
+      {
+        "feature": "goal_diff",
+        "alternative_value": 0,
+        "alternative_probability": 0.5082830859420101,
+        "difference_percentage_points": 35.07749510409568
+      },
+      {
+        "feature": "pregame_logit",
+        "alternative_value": 0,
+        "alternative_probability": 0.8703369401514536,
+        "difference_percentage_points": -1.1278903168486676
+      },
+      {
+        "feature": "skater_diff",
+        "alternative_value": 0,
+        "alternative_probability": 0.8511210083706875,
+        "difference_percentage_points": 0.7937028612279406
+      },
+      {
+        "feature": "home_empty",
+        "alternative_value": 0,
+        "alternative_probability": 0.8590580369829669,
+        "difference_percentage_points": 0.0
+      },
+      {
+        "feature": "away_empty",
+        "alternative_value": 0,
+        "alternative_probability": 0.8590580369829669,
+        "difference_percentage_points": 0.0
+      }
+    ],
+    "warning": "One-feature comparisons are not causal or additive; hypothetical states may be rare."
+  },
+  "note": "Contemporaneous post-event prediction. Final outcome was not a feature."
+}

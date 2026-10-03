@@ -1,0 +1,542 @@
+{
+  "simulations": 10000,
+  "seed": 504,
+  "remaining_games": 1312,
+  "rating_uncertainty_sd": 70.33612485788319,
+  "teams": [
+    {
+      "team": "ANA",
+      "elo": 1457.0677431454596,
+      "mean_points": 80.4586,
+      "points_p10": 60.0,
+      "points_p90": 101.0,
+      "playoffs": 0.2947,
+      "round_2": 0.1077,
+      "conference_final": 0.0413,
+      "final": 0.0133,
+      "cup": 0.0053,
+      "cup_mc_95_interval": [
+        0.0040545030378426996,
+        0.006925438907659515
+      ]
+    },
+    {
+      "team": "BOS",
+      "elo": 1427.2307888829052,
+      "mean_points": 73.8762,
+      "points_p10": 53.90000000000009,
+      "points_p90": 95.0,
+      "playoffs": 0.1742,
+      "round_2": 0.0534,
+      "conference_final": 0.0194,
+      "final": 0.0079,
+      "cup": 0.0019,
+      "cup_mc_95_interval": [
+        0.001216734354204272,
+        0.0029658188761467565
+      ]
+    },
+    {
+      "team": "BUF",
+      "elo": 1494.7966163889992,
+      "mean_points": 87.2953,
+      "points_p10": 67.0,
+      "points_p90": 108.0,
+      "playoffs": 0.4479,
+      "round_2": 0.1841,
+      "conference_final": 0.0803,
+      "final": 0.0391,
+      "cup": 0.016,
+      "cup_mc_95_interval": [
+        0.013720007796266299,
+        0.018651716282211715
+      ]
+    },
+    {
+      "team": "CAR",
+      "elo": 1520.3858976445506,
+      "mean_points": 92.3448,
+      "points_p10": 72.0,
+      "points_p90": 113.0,
+      "playoffs": 0.6116,
+      "round_2": 0.3347,
+      "conference_final": 0.1727,
+      "final": 0.0791,
+      "cup": 0.0364,
+      "cup_mc_95_interval": [
+        0.032903664695228645,
+        0.040252391674156486
+      ]
+    },
+    {
+      "team": "CBJ",
+      "elo": 1512.0358106771107,
+      "mean_points": 90.8666,
+      "points_p10": 70.0,
+      "points_p90": 111.0,
+      "playoffs": 0.5775,
+      "round_2": 0.2996,
+      "conference_final": 0.1527,
+      "final": 0.0689,
+      "cup": 0.0297,
+      "cup_mc_95_interval": [
+        0.026549076827195848,
+        0.033212125309391355
+      ]
+    },
+    {
+      "team": "CGY",
+      "elo": 1514.1255971606238,
+      "mean_points": 91.0548,
+      "points_p10": 70.0,
+      "points_p90": 111.0,
+      "playoffs": 0.5557,
+      "round_2": 0.2667,
+      "conference_final": 0.1216,
+      "final": 0.0515,
+      "cup": 0.0245,
+      "cup_mc_95_interval": [
+        0.021647611241164044,
+        0.027717584625191936
+      ]
+    },
+    {
+      "team": "CHI",
+      "elo": 1395.0054337274755,
+      "mean_points": 67.5489,
+      "points_p10": 48.0,
+      "points_p90": 88.0,
+      "playoffs": 0.079,
+      "round_2": 0.02,
+      "conference_final": 0.0069,
+      "final": 0.0026,
+      "cup": 0.001,
+      "cup_mc_95_interval": [
+        0.0005432800768105723,
+        0.0018399643760004356
+      ]
+    },
+    {
+      "team": "COL",
+      "elo": 1560.7590616959358,
+      "mean_points": 99.5423,
+      "points_p10": 79.0,
+      "points_p90": 119.0,
+      "playoffs": 0.7442,
+      "round_2": 0.402,
+      "conference_final": 0.2015,
+      "final": 0.1131,
+      "cup": 0.065,
+      "cup_mc_95_interval": [
+        0.06033317922041021,
+        0.07000091163524667
+      ]
+    },
+    {
+      "team": "DAL",
+      "elo": 1535.4320203908155,
+      "mean_points": 94.6289,
+      "points_p10": 74.0,
+      "points_p90": 115.0,
+      "playoffs": 0.6234,
+      "round_2": 0.3049,
+      "conference_final": 0.1392,
+      "final": 0.0718,
+      "cup": 0.0368,
+      "cup_mc_95_interval": [
+        0.03328419707753344,
+        0.04067155208186947
+      ]
+    },
+    {
+      "team": "DET",
+      "elo": 1508.20122505838,
+      "mean_points": 89.6387,
+      "points_p10": 69.0,
+      "points_p90": 110.0,
+      "playoffs": 0.5135,
+      "round_2": 0.2325,
+      "conference_final": 0.1073,
+      "final": 0.0525,
+      "cup": 0.0235,
+      "cup_mc_95_interval": [
+        0.020708808996901244,
+        0.02665715489441027
+      ]
+    },
+    {
+      "team": "EDM",
+      "elo": 1545.915956740501,
+      "mean_points": 97.3966,
+      "points_p10": 77.0,
+      "points_p90": 117.0,
+      "playoffs": 0.7044,
+      "round_2": 0.3782,
+      "conference_final": 0.1987,
+      "final": 0.0938,
+      "cup": 0.0508,
+      "cup_mc_95_interval": [
+        0.046665923012702865,
+        0.05527907379732258
+      ]
+    },
+    {
+      "team": "FLA",
+      "elo": 1527.8814417132903,
+      "mean_points": 93.4747,
+      "points_p10": 73.0,
+      "points_p90": 114.0,
+      "playoffs": 0.6037,
+      "round_2": 0.298,
+      "conference_final": 0.1513,
+      "final": 0.0807,
+      "cup": 0.0359,
+      "cup_mc_95_interval": [
+        0.032428166593132614,
+        0.03972827378873028
+      ]
+    },
+    {
+      "team": "LAK",
+      "elo": 1558.5288525394815,
+      "mean_points": 99.4484,
+      "points_p10": 79.0,
+      "points_p90": 119.0,
+      "playoffs": 0.7476,
+      "round_2": 0.4313,
+      "conference_final": 0.2402,
+      "final": 0.119,
+      "cup": 0.066,
+      "cup_mc_95_interval": [
+        0.061298413146536994,
+        0.07103490968416434
+      ]
+    },
+    {
+      "team": "MIN",
+      "elo": 1504.6987896426326,
+      "mean_points": 89.2115,
+      "points_p10": 69.0,
+      "points_p90": 109.0,
+      "playoffs": 0.4891,
+      "round_2": 0.2042,
+      "conference_final": 0.0871,
+      "final": 0.0407,
+      "cup": 0.0189,
+      "cup_mc_95_interval": [
+        0.016409903602876197,
+        0.021759593203230766
+      ]
+    },
+    {
+      "team": "MTL",
+      "elo": 1500.2237133018346,
+      "mean_points": 87.9145,
+      "points_p10": 67.0,
+      "points_p90": 108.0,
+      "playoffs": 0.4665,
+      "round_2": 0.1967,
+      "conference_final": 0.0892,
+      "final": 0.0445,
+      "cup": 0.0192,
+      "cup_mc_95_interval": [
+        0.016689161694804635,
+        0.022080104703815665
+      ]
+    },
+    {
+      "team": "NJD",
+      "elo": 1478.6664189778437,
+      "mean_points": 84.1191,
+      "points_p10": 64.0,
+      "points_p90": 105.0,
+      "playoffs": 0.4022,
+      "round_2": 0.1936,
+      "conference_final": 0.0876,
+      "final": 0.0339,
+      "cup": 0.0148,
+      "cup_mc_95_interval": [
+        0.012612720784821448,
+        0.017359924923603203
+      ]
+    },
+    {
+      "team": "NSH",
+      "elo": 1445.6538566035508,
+      "mean_points": 77.7487,
+      "points_p10": 57.0,
+      "points_p90": 98.0,
+      "playoffs": 0.2289,
+      "round_2": 0.076,
+      "conference_final": 0.0303,
+      "final": 0.0108,
+      "cup": 0.0041,
+      "cup_mc_95_interval": [
+        0.0030238378611372654,
+        0.005557025714311589
+      ]
+    },
+    {
+      "team": "NYI",
+      "elo": 1458.937726018776,
+      "mean_points": 80.3448,
+      "points_p10": 60.0,
+      "points_p90": 100.0,
+      "playoffs": 0.3178,
+      "round_2": 0.1328,
+      "conference_final": 0.0584,
+      "final": 0.0214,
+      "cup": 0.0072,
+      "cup_mc_95_interval": [
+        0.005721669784983977,
+        0.009056812913102725
+      ]
+    },
+    {
+      "team": "NYR",
+      "elo": 1493.4513524994802,
+      "mean_points": 87.0862,
+      "points_p10": 66.0,
+      "points_p90": 108.0,
+      "playoffs": 0.4795,
+      "round_2": 0.2395,
+      "conference_final": 0.1136,
+      "final": 0.0455,
+      "cup": 0.0186,
+      "cup_mc_95_interval": [
+        0.016130818828959125,
+        0.021438908384634494
+      ]
+    },
+    {
+      "team": "OTT",
+      "elo": 1534.2137225544896,
+      "mean_points": 94.6291,
+      "points_p10": 74.0,
+      "points_p90": 115.0,
+      "playoffs": 0.6324,
+      "round_2": 0.3182,
+      "conference_final": 0.155,
+      "final": 0.0841,
+      "cup": 0.0376,
+      "cup_mc_95_interval": [
+        0.034045611065815926,
+        0.04150952367362257
+      ]
+    },
+    {
+      "team": "PHI",
+      "elo": 1440.2013254555002,
+      "mean_points": 76.6271,
+      "points_p10": 56.0,
+      "points_p90": 97.0,
+      "playoffs": 0.24,
+      "round_2": 0.093,
+      "conference_final": 0.039,
+      "final": 0.0144,
+      "cup": 0.0046,
+      "cup_mc_95_interval": [
+        0.0034506417566451753,
+        0.006129837806325912
+      ]
+    },
+    {
+      "team": "PIT",
+      "elo": 1467.3905581745826,
+      "mean_points": 82.0282,
+      "points_p10": 61.0,
+      "points_p90": 102.0,
+      "playoffs": 0.3523,
+      "round_2": 0.1569,
+      "conference_final": 0.0636,
+      "final": 0.0245,
+      "cup": 0.0078,
+      "cup_mc_95_interval": [
+        0.006254750539120007,
+        0.009723271343993376
+      ]
+    },
+    {
+      "team": "SEA",
+      "elo": 1467.9748529277074,
+      "mean_points": 81.7782,
+      "points_p10": 61.0,
+      "points_p90": 102.0,
+      "playoffs": 0.3229,
+      "round_2": 0.1257,
+      "conference_final": 0.0521,
+      "final": 0.019,
+      "cup": 0.007,
+      "cup_mc_95_interval": [
+        0.005544595653529791,
+        0.008834040649548016
+      ]
+    },
+    {
+      "team": "SJS",
+      "elo": 1338.7094570979239,
+      "mean_points": 57.2083,
+      "points_p10": 38.0,
+      "points_p90": 77.0,
+      "playoffs": 0.0256,
+      "round_2": 0.0061,
+      "conference_final": 0.0015,
+      "final": 0.0006,
+      "cup": 0.0002,
+      "cup_mc_95_interval": [
+        5.4847779209068104e-05,
+        0.0007290110935663664
+      ]
+    },
+    {
+      "team": "STL",
+      "elo": 1549.900564297723,
+      "mean_points": 98.237,
+      "points_p10": 78.0,
+      "points_p90": 118.0,
+      "playoffs": 0.7133,
+      "round_2": 0.3689,
+      "conference_final": 0.1855,
+      "final": 0.1004,
+      "cup": 0.0569,
+      "cup_mc_95_interval": [
+        0.05252747165779676,
+        0.06161284019999993
+      ]
+    },
+    {
+      "team": "TBL",
+      "elo": 1536.650857117367,
+      "mean_points": 95.776,
+      "points_p10": 75.0,
+      "points_p90": 116.0,
+      "playoffs": 0.6657,
+      "round_2": 0.3406,
+      "conference_final": 0.1688,
+      "final": 0.0936,
+      "cup": 0.0432,
+      "cup_mc_95_interval": [
+        0.039387503826348,
+        0.04736332997333951
+      ]
+    },
+    {
+      "team": "TOR",
+      "elo": 1587.530421069392,
+      "mean_points": 105.1169,
+      "points_p10": 85.0,
+      "points_p90": 124.0,
+      "playoffs": 0.8506,
+      "round_2": 0.5508,
+      "conference_final": 0.3367,
+      "final": 0.2158,
+      "cup": 0.1225,
+      "cup_mc_95_interval": [
+        0.1162184605246299,
+        0.12907146889608379
+      ]
+    },
+    {
+      "team": "UTA",
+      "elo": 1496.869907829328,
+      "mean_points": 87.7718,
+      "points_p10": 67.0,
+      "points_p90": 108.0,
+      "playoffs": 0.4531,
+      "round_2": 0.1767,
+      "conference_final": 0.0753,
+      "final": 0.0337,
+      "cup": 0.0151,
+      "cup_mc_95_interval": [
+        0.012889188038886227,
+        0.017683227262051765
+      ]
+    },
+    {
+      "team": "VAN",
+      "elo": 1486.555111605131,
+      "mean_points": 86.1402,
+      "points_p10": 65.0,
+      "points_p90": 107.0,
+      "playoffs": 0.4303,
+      "round_2": 0.174,
+      "conference_final": 0.0723,
+      "final": 0.0252,
+      "cup": 0.0104,
+      "cup_mc_95_interval": [
+        0.008591129016579109,
+        0.012584896001649887
+      ]
+    },
+    {
+      "team": "VGK",
+      "elo": 1550.040571865472,
+      "mean_points": 98.3079,
+      "points_p10": 78.0,
+      "points_p90": 118.0,
+      "playoffs": 0.7256,
+      "round_2": 0.4104,
+      "conference_final": 0.2181,
+      "final": 0.1027,
+      "cup": 0.0552,
+      "cup_mc_95_interval": [
+        0.050892353321999914,
+        0.05984926417822119
+      ]
+    },
+    {
+      "team": "WPG",
+      "elo": 1594.9103183052785,
+      "mean_points": 106.5782,
+      "points_p10": 87.0,
+      "points_p90": 126.0,
+      "playoffs": 0.8622,
+      "round_2": 0.5472,
+      "conference_final": 0.3284,
+      "final": 0.2018,
+      "cup": 0.1247,
+      "cup_mc_95_interval": [
+        0.11836834209736188,
+        0.13131989766844968
+      ]
+    },
+    {
+      "team": "WSH",
+      "elo": 1531.2550251166172,
+      "mean_points": 94.4138,
+      "points_p10": 74.0,
+      "points_p90": 114.0,
+      "playoffs": 0.6646,
+      "round_2": 0.3756,
+      "conference_final": 0.2044,
+      "final": 0.0941,
+      "cup": 0.0392,
+      "cup_mc_95_interval": [
+        0.03556978700366839,
+        0.04318411889584124
+      ]
+    }
+  ],
+  "assumptions": [
+    "One latent team-strength draw per simulated season; SD estimated from training-season Elo drift, not a calibrated posterior. No explicit injury, lineup or trade adjustments.",
+    "Independent Poisson regulation goals; all simulated ties resolve in overtime.",
+    "Standings ties approximate official rules: no head-to-head tie-break.",
+    "Playoff game probabilities use regular-season Elo; no separate playoff fit.",
+    "Cup intervals show simulation error only, not forecasting/model uncertainty."
+  ],
+  "as_of": "2025-10-01",
+  "cutoff_date": "2025-09-30",
+  "season": 20252026,
+  "goal_model": {
+    "rating_uncertainty_sd": 70.33612485788319,
+    "log_base": 1.0734193544734238,
+    "home_effect": 0.06178639615042213,
+    "strength_effect": 0.4622618692020297,
+    "training_games": 2624,
+    "method": "Poisson MLE; independent regulation goals; fixed ratings"
+  },
+  "expected_games_per_team": 82,
+  "source": "NHL schedules, dated standings, and historical results",
+  "status": "real_data_simulated",
+  "membership_only_source_date": "2025-10-07"
+}

@@ -1,0 +1,222 @@
+{
+  "status": "real_data_evaluated",
+  "selected_model": "logistic_C1",
+  "tuning_results": {
+    "logistic_C0.1": {
+      "brier": 0.1711508556535437,
+      "log_loss": 0.505702240906653,
+      "auc": 0.8191912093342498,
+      "accuracy": 0.7349139381423205
+    },
+    "logistic_C1": {
+      "brier": 0.17064545739014528,
+      "log_loss": 0.5037136903668212,
+      "auc": 0.8199513896526055,
+      "accuracy": 0.7350654167235857
+    },
+    "boosted_7leaves": {
+      "brier": 0.1723169696958871,
+      "log_loss": 0.5071655516048319,
+      "auc": 0.8159725609531691,
+      "accuracy": 0.7283875705862055
+    },
+    "boosted_15leaves": {
+      "brier": 0.17469997358653996,
+      "log_loss": 0.512993064111003,
+      "auc": 0.8107939984236376,
+      "accuracy": 0.7248041097700769
+    },
+    "score_time_baseline": {
+      "brier": 0.17489789578675083,
+      "log_loss": 0.5130046303989666,
+      "auc": 0.8048706901739152,
+      "accuracy": 0.7252390413909954
+    }
+  },
+  "test": {
+    "baseline": {
+      "brier": 0.17632895875623952,
+      "log_loss": 0.5165960839199293,
+      "auc": 0.8086070303747693,
+      "accuracy": 0.7064054493379289
+    },
+    "selected_raw": {
+      "brier": 0.17699955342280693,
+      "log_loss": 0.5175921836065908,
+      "auc": 0.8073376766374315,
+      "accuracy": 0.7073807492882084
+    },
+    "selected_calibrated": {
+      "brier": 0.17850669702722016,
+      "log_loss": 0.5209254978964045,
+      "auc": 0.8073376766374315,
+      "accuracy": 0.7129699897594999
+    },
+    "pregame_only": {
+      "brier": 0.25187962852125967,
+      "log_loss": 0.6979142515372284,
+      "auc": 0.547629192423674,
+      "accuracy": 0.5388719512195125
+    },
+    "constant_50_percent": {
+      "brier": 0.25,
+      "log_loss": 0.6931471805599454,
+      "auc": 0.5,
+      "accuracy": 0.5221036585365854
+    }
+  },
+  "paired_bootstrap": {
+    "brier_difference": 0.0021777382709809116,
+    "95_percent_game_bootstrap_interval": [
+      -0.0007923612567853561,
+      0.0050571473567707125
+    ],
+    "bootstrap_draws": 400,
+    "interpretation": "Negative favors selected model; interval crossing zero is inconclusive."
+  },
+  "calibration": [
+    {
+      "bin": 0,
+      "mean_prediction": 0.037299444329760886,
+      "observed_rate": 0.03954336740859064,
+      "games": 537,
+      "states": 26418
+    },
+    {
+      "bin": 1,
+      "mean_prediction": 0.15016401419224704,
+      "observed_rate": 0.14580799108201833,
+      "games": 578,
+      "states": 18784
+    },
+    {
+      "bin": 2,
+      "mean_prediction": 0.2510129263979187,
+      "observed_rate": 0.2562219206679058,
+      "games": 570,
+      "states": 19397
+    },
+    {
+      "bin": 3,
+      "mean_prediction": 0.3501905643542807,
+      "observed_rate": 0.31114441900073825,
+      "games": 614,
+      "states": 25516
+    },
+    {
+      "bin": 4,
+      "mean_prediction": 0.45554873921678246,
+      "observed_rate": 0.42535604110902925,
+      "games": 590,
+      "states": 29192
+    },
+    {
+      "bin": 5,
+      "mean_prediction": 0.5526147479169717,
+      "observed_rate": 0.5071584124231298,
+      "games": 862,
+      "states": 57128
+    },
+    {
+      "bin": 6,
+      "mean_prediction": 0.6447063961618364,
+      "observed_rate": 0.559310951178881,
+      "games": 687,
+      "states": 39791
+    },
+    {
+      "bin": 7,
+      "mean_prediction": 0.7519675672855376,
+      "observed_rate": 0.690315845817287,
+      "games": 729,
+      "states": 33483
+    },
+    {
+      "bin": 8,
+      "mean_prediction": 0.8499189246178086,
+      "observed_rate": 0.8116542842646837,
+      "games": 680,
+      "states": 28803
+    },
+    {
+      "bin": 9,
+      "mean_prediction": 0.9613226443792549,
+      "observed_rate": 0.9634045925435698,
+      "games": 616,
+      "states": 42612
+    }
+  ],
+  "instinct_cohort": {
+    "games": 679,
+    "mean_prediction": 0.8508650484913747,
+    "observed_rate": 0.801178203240059,
+    "95_percent_game_bootstrap_interval": [
+      0.7717231222385862,
+      0.8291605301914581
+    ]
+  },
+  "feature_importance": [
+    {
+      "feature": "goal_diff",
+      "brier_increase": 0.0018228753997904246
+    },
+    {
+      "feature": "remaining",
+      "brier_increase": -2.8402437130814473e-05
+    },
+    {
+      "feature": "score_clock",
+      "brier_increase": 0.1200260595566453
+    },
+    {
+      "feature": "pregame_logit",
+      "brier_increase": 0.002393781384639665
+    },
+    {
+      "feature": "shot_diff",
+      "brier_increase": 3.4026960484490054e-05
+    },
+    {
+      "feature": "skater_diff",
+      "brier_increase": 4.337985398963906e-05
+    },
+    {
+      "feature": "home_empty",
+      "brier_increase": -2.372858231489139e-05
+    },
+    {
+      "feature": "away_empty",
+      "brier_increase": -3.0171330311773437e-05
+    },
+    {
+      "feature": "situation_missing",
+      "brier_increase": 0.0
+    }
+  ],
+  "partitions": {
+    "training": {
+      "games": 2624,
+      "states": 628123,
+      "first": "2022-10-07",
+      "last": "2024-04-18"
+    },
+    "tuning": {
+      "games": 639,
+      "states": 160028,
+      "first": "2024-10-04",
+      "last": "2025-01-06"
+    },
+    "calibration": {
+      "games": 673,
+      "states": 167671,
+      "first": "2025-01-07",
+      "last": "2025-04-17"
+    },
+    "test": {
+      "games": 1312,
+      "states": 321124,
+      "first": "2025-10-07",
+      "last": "2026-04-16"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "reason": "Prior CSV did not cover all held-out observations",
+  "regenerated_from": "frozen model and verified data/states.csv",
+  "states": 321124,
+  "games": 1312,
+  "model_and_metrics_changed": false
+}
