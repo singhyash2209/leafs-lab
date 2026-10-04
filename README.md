@@ -6,7 +6,7 @@ Explore the dashboard: https://singhyash2209.github.io/leafs-lab/
 
 Source code: https://github.com/singhyash2209/leafs-lab
 
-The public dashboard has a stable home and a [season archive](https://singhyash2209.github.io/leafs-lab/archive.html). The initial published season is **2026-27**, snapshot **October 3, 2026**, using completed results through October 2. The daily task is scheduled for **6 a.m. America/Toronto through April 11, 2027** and publishes successful API-backed model refreshes. Failed runs retain the last good snapshot; inspect the displayed date. Future seasons require explicit configuration and model checks before publication. Hosting availability depends on GitHub and maintaining this repository.
+The public dashboard has a stable home and a [season archive](https://singhyash2209.github.io/leafs-lab/archive.html). The initial published season is **2026-27**, snapshot **October 3, 2026**, using completed results through October 2. GitHub Actions independently runs the Python API refresh daily at **6:17 a.m. America/Toronto**. The former ChatGPT task is paused. Failed runs retain the last good snapshot; inspect the displayed date. Future seasons require explicit configuration and model checks before publication. Hosting availability depends on GitHub and maintaining this repository.
 
 To add or update a season after generating its verified portable dashboard:
 
@@ -119,7 +119,7 @@ Three rolling-origin preseason checks cover 2023-24, 2024-25, and 2025-26. They 
 
 ## Automation
 
-The daily Work Mode task refreshes official NHL API data, runs the frozen Python forecasting pipeline, and publishes successful validated snapshots to this public dashboard and the separate private Site. It runs at 6 a.m. America/Toronto through April 11, 2027. GitHub Pages serves the published HTML; it does not run Python. Failed refreshes retain the last good publication. Future seasons need explicit configuration and model checks.
+The public dashboard uses the independent GitHub Actions workflow described below. The old Work Mode task is paused; the separate private Site is not refreshed by this GitHub workflow. GitHub Actions runs Python and publishes validated snapshots. GitHub Pages serves the HTML. Failed refreshes retain the last good publication. Future seasons need explicit configuration and model checks.
 
 Before validating or rendering a new dashboard payload, preserve readable labels and precise percentage tooltips:
 
@@ -165,7 +165,9 @@ ChatGPT or an OpenAI API, and does not require an API key or personal token.
 Run locally from a clean checkout: `pip install -r requirements.txt`, install
 Node 22, then `python scripts/scheduled_refresh.py`. Historical schedule API
 responses are cached with their checksums and retrieval dates; current-season
-schedules and dated standings are requested fresh on each online run.
+schedules and dated standings are requested fresh on each online run. If late
+games are still unfinished at midnight, the job uses the latest fully completed
+calendar cutoff and displays it. It refuses to regress a published date.
 
 The current model supports the configured regular season only. The existing
 postseason cutoff stops publishing unsupported forecasts; the latest verified
