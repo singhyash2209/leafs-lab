@@ -8,7 +8,7 @@ from datetime import datetime,timezone
 from zoneinfo import ZoneInfo
 import pandas as pd
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from leafslab.data import NHLClient,validate_schedules
+from leafslab.data import NHLClient,validate_schedules,FINAL
 from leafslab.cli import forecast,save_json
 from readable_dashboard import readable
 from archive_dashboard import publish
@@ -24,6 +24,17 @@ def refresh(as_of=None,offline=False):
         frames.append(client.schedule(season,refresh=(season==config['forecast_season'] and not offline)))
     games=pd.concat(frames,ignore_index=True)
     validate_schedules(games,seasons[:-1],config['minimum_games_per_season'])
+    requested_date=config['as_of']
+    unresolved=games[(games.season==config['forecast_season'])&(games.game_type==2)&(games.date<requested_date)&~games.status.isin(FINAL)]
+    if not unresolved.empty:
+        print('Past games not yet final: '+unresolved[['date','home','away','status']].to_json(orient='records'),flush=True)
+        if as_of is not None: raise ValueError('Requested date contains unfinished games')
+        # At midnight, late western games can still be live. Use the most
+        # recent fully completed calendar cutoff, not partial results.
+        config['as_of']=str(unresolved.date.min())
+        previous=json.loads(Path('outputs/forecast.json').read_text())
+        if config['as_of']<previous['as_of']: raise ValueError('API would regress the published snapshot date')
+        print(f"Using completed-results snapshot {config['as_of']} (requested {requested_date})",flush=True)
     games.to_csv('data/games.csv',index=False)
     # The existing engine checks cutoff standings, completed scores, season
     # membership, games-per-team and playoff mass before emitting a forecast.
@@ -66,7 +77,7 @@ def refresh(as_of=None,offline=False):
     save_json('outputs/artifact.json',artifact)
     subprocess.run(['node','scripts/render_dashboard.mjs'],check=True)
     publish(Path('outputs/dashboard.html'),Path('outputs/forecast.json'),Path('docs'))
-    save_json('outputs/refresh_status.json',{'status':'success','generated_at':now,'as_of':config['as_of'],'season':result['season'],'api':'https://api-web.nhle.com/v1','scheduler':'GitHub Actions','simulations':result['simulations'],'frozen_evaluation_unchanged':True})
+    save_json('outputs/refresh_status.json',{'status':'success','generated_at':now,'as_of':config['as_of'],'requested_date':requested_date,'season':result['season'],'api':'https://api-web.nhle.com/v1','scheduler':'GitHub Actions','simulations':result['simulations'],'frozen_evaluation_unchanged':True})
     print('Validated forecast and archive ready for publication',flush=True)
 
 if __name__=='__main__':
