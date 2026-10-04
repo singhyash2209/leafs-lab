@@ -5,7 +5,7 @@
     "surface": "dashboard",
     "title": "Leafs Lab - From a 2-1 Lead to Cup Chances",
     "description": "Verified historical game probabilities and a model-based season forecast.",
-    "generatedAt": "2026-10-03T10:07:42.265023+00:00",
+    "generatedAt": "2026-10-04T04:37:54.786957+00:00",
     "filters": [],
     "cards": [
       {
@@ -292,15 +292,17 @@
           "language": "sql",
           "engine": "SQLite",
           "sql": "SELECT team,elo,points_sum*1.0/simulations AS mean_points,\n points_p10,points_p90,playoffs_count*1.0/simulations AS playoffs,\n round_2_count*1.0/simulations AS round_2,\n conference_final_count*1.0/simulations AS conference_final,\n final_count*1.0/simulations AS final,\n cup_count*1.0/simulations AS cup, cup_count AS cup_simulation_wins\n FROM forecast_counts ORDER BY cup DESC,team;",
-          "description": "Fixed-strength remaining-season and playoff simulation. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+          "description": "SQL recomputation from current Monte Carlo counts in an in-memory SQLite database; validated against outputs/forecast.json. Python fetches NHL schedules and dated standings before simulation.",
           "tables_used": [
             "forecast_counts"
           ],
           "filters": {
             "as_of": "2026-10-03",
+            "cutoff_date": "2026-10-02",
+            "season": 20262027,
             "simulations": 10000
           },
-          "executed_at": "2026-10-03T10:07:42.265023+00:00"
+          "executed_at": "2026-10-04T04:37:54.786957+00:00"
         }
       },
       {
@@ -340,6 +342,11 @@
         "id": "intro",
         "type": "markdown",
         "body": "# Leafs Lab - From a 2-1 Lead to Cup Chances\n\nFrom the September 30 game to a testable forecasting project. Season snapshot: 2026-10-03."
+      },
+      {
+        "id": "automation_status",
+        "type": "markdown",
+        "body": "### Daily API refresh\n\nThe season forecast is refreshed by Python on GitHub Actions, scheduled daily at 6:17 AM Toronto time. Last successful run: 2026-10-04T04:37:54.786957+00:00. NHL results cutoff: 2026-10-02. The historical game analysis and model evaluation remain frozen.\n\nThe current engine supports the configured regular season (2026-2027). During playoffs or before an unconfigured season, it keeps the last verified snapshot. New seasons require configuration and validation. API outages stop publication rather than substituting invented data. GitHub may delay runs or disable an inactive public repository's schedule; the dated dashboard and archive remain readable."
       },
       {
         "id": "game_headline",
@@ -420,7 +427,7 @@
   },
   "snapshot": {
     "version": 1,
-    "generatedAt": "2026-10-03T10:07:42.265023+00:00",
+    "generatedAt": "2026-10-04T04:37:54.786957+00:00",
     "status": "ready",
     "datasets": {
       "toronto": [
@@ -2669,15 +2676,17 @@
         "language": "sql",
         "engine": "SQLite",
         "sql": "SELECT team,elo,points_sum*1.0/simulations AS mean_points,\n points_p10,points_p90,playoffs_count*1.0/simulations AS playoffs,\n round_2_count*1.0/simulations AS round_2,\n conference_final_count*1.0/simulations AS conference_final,\n final_count*1.0/simulations AS final,\n cup_count*1.0/simulations AS cup, cup_count AS cup_simulation_wins\n FROM forecast_counts ORDER BY cup DESC,team;",
-        "description": "Fixed-strength remaining-season and playoff simulation. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.",
+        "description": "SQL recomputation from current Monte Carlo counts in an in-memory SQLite database; validated against outputs/forecast.json. Python fetches NHL schedules and dated standings before simulation.",
         "tables_used": [
           "forecast_counts"
         ],
         "filters": {
           "as_of": "2026-10-03",
+          "cutoff_date": "2026-10-02",
+          "season": 20262027,
           "simulations": 10000
         },
-        "executed_at": "2026-10-03T10:07:42.265023+00:00"
+        "executed_at": "2026-10-04T04:37:54.786957+00:00"
       }
     },
     {

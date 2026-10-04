@@ -753,28 +753,14 @@
   "season": 20262027,
   "goal_model": {
     "rating_uncertainty_sd": 70.33612485788319,
-    "log_base": 1.0734193544734238,
-    "home_effect": 0.06178639615042213,
-    "strength_effect": 0.4622618692020297,
+    "log_base": 1.073419357020205,
+    "home_effect": 0.06178639363968686,
+    "strength_effect": 0.4622618638676687,
     "training_games": 2624,
     "method": "Poisson MLE; independent regulation goals; fixed ratings"
   },
   "expected_games_per_team": 84,
   "source": "NHL schedules, dated standings, and historical results",
   "status": "real_data_simulated",
-  "membership_only_source_date": null,
-  "sensitivity": [
-    {
-      "toronto_elo_change": -50,
-      "playoffs": 0.045,
-      "cup": 0.0,
-      "simulations": 2000
-    },
-    {
-      "toronto_elo_change": 50,
-      "playoffs": 0.313,
-      "cup": 0.0075,
-      "simulations": 2000
-    }
-  ]
+  "membership_only_source_date": null
 }
