@@ -152,3 +152,35 @@ This version forecasts the Cup during the regular season and simulates the entir
 
 ## SQL audit layer
 `queries/` contains the actual SQLite queries producing dashboard metrics. `outputs/dashboard_sources.sqlite` contains the underlying evaluation, simulation-count and season-result tables. `leafslab/dashboard_sql.py` registers the frozen model UDF for game probabilities. These computations independently reconcile with Python outputs. The source modal uses this auditable SQL provenance.
+
+## Independent daily refresh
+
+The public dashboard is refreshed by `.github/workflows/daily-refresh.yml` at
+6:17 AM America/Toronto, plus a manual Run workflow button. It runs Python
+against NHL JSON endpoints, validates standings/schedules, recomputes 10,000
+season simulations, preserves the frozen game/evaluation datasets, commits the
+verified snapshot and deploys `docs` directly to GitHub Pages. It does not call
+ChatGPT or an OpenAI API, and does not require an API key or personal token.
+
+Run locally from a clean checkout: `pip install -r requirements.txt`, install
+Node 22, then `python scripts/scheduled_refresh.py`. Historical schedule API
+responses are cached with their checksums and retrieval dates; current-season
+schedules and dated standings are requested fresh on each online run.
+
+The current model supports the configured regular season only. The existing
+postseason cutoff stops publishing unsupported forecasts; the latest verified
+dashboard remains available. New seasons require a reviewed `config.json` and
+validation before publication. Earlier published seasons remain in the archive.
+An API/schema/validation error fails the job instead of replacing good data.
+GitHub schedules may be delayed and public-repository schedules can be disabled
+after 60 days without repository activity. Check Actions and the displayed date
+if the dashboard is stale. No promise of permanent third-party service uptime.
+
+GitHub Pages must use **GitHub Actions** as its publishing source. A bot commit
+alone does not trigger a branch-based Pages build, so the workflow explicitly
+uploads and deploys the Pages artifact. The Actions cache is only an optimization;
+a cache miss downloads the historical schedules again.
+
+The portable renderer in `scripts/portable` is adapted from the same Data
+Analytics portable builder used for the original report; its packaged runtime
+and semantic fallback are self-contained, with no CDN dependency.
