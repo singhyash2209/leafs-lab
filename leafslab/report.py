@@ -1,5 +1,5 @@
 """Reader artifacts from executed, verified results only. Never fabricate cards."""
-import json, os, subprocess
+import json, os, subprocess, runpy
 from pathlib import Path
 from datetime import datetime, timezone
 import pandas as pd
@@ -161,6 +161,8 @@ Situation missingness: {quality['situation_missing_fraction']:.1%}. See data_qua
         source['query']['description']+=' Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.'
     artifact['sources']=artifact['manifest']['sources']
 
+    presentation = Path(__file__).resolve().parents[1]/'scripts'/'readable_dashboard.py'
+    artifact = runpy.run_path(str(presentation))['readable'](artifact, forecast)
     (out/'artifact.json').write_text(json.dumps(artifact,indent=2,allow_nan=False))
     renderer=os.environ.get('LEAFSLAB_HTML_RENDERER',DEFAULT_RENDERER)
     if Path(renderer).exists():

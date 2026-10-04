@@ -1,4 +1,4 @@
-# Leafs Lab — NHL analytics portfolio
+# Leafs Lab - NHL analytics portfolio
 
 Python analysis by Yash Singh: in-game win probabilities, historical EDA, Elo ratings, season simulation and validation.
 
@@ -6,7 +6,7 @@ Explore the dashboard: https://singhyash2209.github.io/leafs-lab/
 
 Source code: https://github.com/singhyash2209/leafs-lab
 
-The public dashboard has a stable home and a [season archive](https://singhyash2209.github.io/leafs-lab/archive.html). The initial published season is **2026–27**, snapshot **October 3, 2026**, using completed results through October 2. The daily task is scheduled for **6 a.m. America/Toronto through April 11, 2027** and publishes successful API-backed model refreshes. Failed runs retain the last good snapshot; inspect the displayed date. Future seasons require explicit configuration and model checks before publication. Hosting availability depends on GitHub and maintaining this repository.
+The public dashboard has a stable home and a [season archive](https://singhyash2209.github.io/leafs-lab/archive.html). The initial published season is **2026-27**, snapshot **October 3, 2026**, using completed results through October 2. The daily task is scheduled for **6 a.m. America/Toronto through April 11, 2027** and publishes successful API-backed model refreshes. Failed runs retain the last good snapshot; inspect the displayed date. Future seasons require explicit configuration and model checks before publication. Hosting availability depends on GitHub and maintaining this repository.
 
 To add or update a season after generating its verified portable dashboard:
 
@@ -18,8 +18,8 @@ Commit the changed `docs` files to `main`; Pages serves `main:/docs`. The script
 
 ## What the evidence supports
 
-- At Toronto's first observed 2–1 state, with 5:51 remaining, the model estimated **85.9%** eventual win probability. This is a retrospective model estimate, not proof of accuracy from one win.
-- Game evaluation held out **1,312 whole games** from 2025–26, with **321,124 regulation states**.
+- At Toronto's first observed 2-1 state, with 5:51 remaining, the model estimated **85.9%** eventual win probability. This is a retrospective model estimate, not proof of accuracy from one win.
+- Game evaluation held out **1,312 whole games** from 2025-26, with **321,124 regulation states**.
 - Calibrated game-weighted Brier score: **0.1785**, versus **0.1763** for the score/time baseline. Lower is better; improvement was not established.
 - Season and Cup forecasts remain **experimental**. Their validation is separate from the game model, and the latest playoff backtest did not beat the naive baseline.
 
@@ -69,14 +69,14 @@ This GitHub package includes source code, the executed notebook, selected evalua
 | `python -m leafslab prepare` | Validate PBP, reconstruct known state, build past-only Elo and game weights | `data/states.csv`, `rated_games.csv`, quality/EDA exports |
 | `python -m leafslab train` | Train candidates, select on tuning period, calibrate on later validation period, score held-out season | `model.joblib`, `metrics.json`, `test_predictions.csv` |
 | `python -m leafslab forecast` | Simulate remaining league schedule and playoffs | `forecast.json`, `forecast.csv`, Toronto strength sensitivity |
-| `python -m leafslab game --date 2026-09-30` | Reconstruct the game and explain the first 2–1 state | `game_curve.csv`, `game_explanation.json` |
+| `python -m leafslab game --date 2026-09-30` | Reconstruct the game and explain the first 2-1 state | `game_curve.csv`, `game_explanation.json` |
 | `python -m leafslab backtest` | Score three retrospective preseason forecasts | `season_backtest_metrics.json` |
 | `python -m leafslab report` | Generate figures, a readable report, and canonical dashboard payload | `figures/`, `report.md`, `artifact.json`; `dashboard.html` where renderer exists |
 | `python -m leafslab run --as-of YYYY-MM-DD` | Entire pipeline with explicit forecast date | All of the above |
 | `python -m leafslab update --as-of YYYY-MM-DD` | Fast current forecast with frozen game model | Updated forecast, report, and dashboard payload |
 | `python -m leafslab run --offline` | Use previously downloaded sources without network requests | Same outputs; fails when a required cache is absent |
 
-`as_of` is the start of the specified calendar day in Toronto. Standings are taken from the previous day's snapshot. It is not an intraday live forecast. Config defaults to October 1, 2026. As the season progresses, pass the new date. The 2026–27 schedule uses 84 games per club; the held-out 2025–26 season uses 82. Schedule appearance counts must reconcile.
+`as_of` is the start of the specified calendar day in Toronto. Standings are taken from the previous day's snapshot. It is not an intraday live forecast. Config defaults to October 1, 2026. As the season progresses, pass the new date. The 2026-27 schedule uses 84 games per club; the held-out 2025-26 season uses 82. Schedule appearance counts must reconcile.
 
 ### Dashboard delivery
 
@@ -97,7 +97,7 @@ All notebook code cells were executed top-to-bottom with in-process IPython and 
 - **Features:** score difference, time remaining, score/time interaction, pregame Elo log-odds, cumulative shot differential, contemporaneous skater difference, goalie-pulled indicators, situation-missing flag.
 - **Baseline:** regularized logistic score/time model; also pregame-only and 50% baselines.
 - **Candidates:** regularized logistic models (`C=0.1/1`), histogram gradient boosting (`7/15` leaves), and the score/time baseline itself. More features are not forced to win.
-- **Training:** 2022–23 and 2023–24. **Tuning:** first half of chronological dates in 2024–25. **Calibration:** second half. **Test:** entire 2025–26 season. No shuffled row split and no game in multiple partitions.
+- **Training:** 2022-23 and 2023-24. **Tuning:** first half of chronological dates in 2024-25. **Calibration:** second half. **Test:** entire 2025-26 season. No shuffled row split and no game in multiple partitions.
 - **Calibration:** logistic calibration of model log-odds, fit on the calibration partition only. Its fit may worsen held-out scores; raw and calibrated metrics are both shown, without retroactive test-based selection.
 - **Metrics:** game-weighted Brier score/log loss, AUC, threshold accuracy; reliability bins; paired game-bootstrap Brier-difference interval. Terminal states are excluded.
 - **Instinct check:** among held-out games containing a home-leading state predicted in [80%, 90%), compare equal-game mean prediction with eventual win frequency and a game bootstrap interval. A single game's victory does not validate an 85% forecast.
@@ -109,17 +109,25 @@ The model is selected only from tuning scores. A result is not marketed as "bett
 
 Elo starts at 1500, has fixed K=20 and home advantage=45, and regresses 25% toward average at a new season. Updates are batched by calendar date; no same-day final outcome enters another game's pregame rating. These parameters are explicit assumptions, not claimed to have been optimized. A new franchise code receives an average prior; predecessor franchise continuity is not modeled.
 
-One latent strength draw per team per simulated season represents uncertainty; its standard deviation is the empirical training-season Elo drift. This is a proxy, not a calibrated posterior. Regulation goal rates use Poisson maximum likelihood on training-season scores, with the deciding OT/SO goal removed. Simulated regulation ties award the loser one point and the winner two. Current standings initialize the season. Each iteration simulates every remaining scheduled game, top-three division qualification, two wildcards per conference, and four best-of-seven rounds with 2–2–1–1–1 home ice. Stage totals reconcile to 16, 8, 4, 2, and 1 clubs.
+One latent strength draw per team per simulated season represents uncertainty; its standard deviation is the empirical training-season Elo drift. This is a proxy, not a calibrated posterior. Regulation goal rates use Poisson maximum likelihood on training-season scores, with the deciding OT/SO goal removed. Simulated regulation ties award the loser one point and the winner two. Current standings initialize the season. Each iteration simulates every remaining scheduled game, top-three division qualification, two wildcards per conference, and four best-of-seven rounds with 2-2-1-1-1 home ice. Stage totals reconcile to 16, 8, 4, 2, and 1 clubs.
 
 Default: 10,000 seeded simulations. Expected points and 10th/90th percentiles, probabilities for each playoff stage, Monte Carlo intervals, and ±50 Toronto Elo sensitivity are exported.
 
 **Limitations:** each sampled latent strength is fixed within its simulated future; no injury, goalie-starter, roster/trade, fatigue, travel, or expected-goals model; independent Poisson goals; all simulated tied regular-season games resolved as OT rather than shootout; official head-to-head standings tie-break not implemented; regular-season Elo reused for playoff games; no independently calibrated playoff/Cup model. Monte Carlo intervals measure simulation error only. Strength sensitivity is not a comprehensive model confidence interval.
 
-Three rolling-origin preseason checks cover 2023–24, 2024–25, and 2025–26. They report points MAE/RMSE and stage Brier scores against constant-rate baselines. These season checks are exploratory: the uncertainty variant followed review of the initial baseline, so they are not claimed as a pristine untouched holdout. A few seasons with dependent club outcomes cannot establish championship calibration.
+Three rolling-origin preseason checks cover 2023-24, 2024-25, and 2025-26. They report points MAE/RMSE and stage Brier scores against constant-rate baselines. These season checks are exploratory: the uncertainty variant followed review of the initial baseline, so they are not claimed as a pristine untouched holdout. A few seasons with dependent club outcomes cannot establish championship calibration.
 
 ## Automation
 
-The existing ChatGPT-hosted dashboard has a separate daily updater. This GitHub package is a fixed October 2 export. GitHub Pages does not run Python, and no GitHub refresh workflow has been activated. Running `refresh.py` locally updates Python outputs; publishing a new Pages snapshot additionally requires rendering the dashboard HTML and replacing `docs/index.html`. The Work Mode renderer is not bundled here.
+The daily Work Mode task refreshes official NHL API data, runs the frozen Python forecasting pipeline, and publishes successful validated snapshots to this public dashboard and the separate private Site. It runs at 6 a.m. America/Toronto through April 11, 2027. GitHub Pages serves the published HTML; it does not run Python. Failed refreshes retain the last good publication. Future seasons need explicit configuration and model checks.
+
+Before validating or rendering a new dashboard payload, preserve readable labels and precise percentage tooltips:
+
+```bash
+python scripts/readable_dashboard.py --artifact outputs/artifact.json --forecast outputs/forecast.json
+```
+
+The presentation script preserves numeric forecast and evaluation values, spells out all 32 team names, formats season labels, and recomputes Toronto's explanation from that run's forecast. Then use the canonical renderer and archive script described above.
 
 ## LinkedIn draft
 
@@ -134,7 +142,7 @@ Use the actual held-out Brier score, baseline comparison, number of games, forec
 - NHL dated standings JSON: `https://api-web.nhle.com/v1/standings/{YYYY-MM-DD}`
 - Endpoint reference: https://github.com/Zmalski/NHL-API-Reference
 - Official playoff structure: https://www.nhl.com/info/standings-info/playoff-format
-- Official 2026–27 schedule announcement: https://www.nhl.com/news/nhl-announces-2026-27-regular-season-schedule
+- Official 2026-27 schedule announcement: https://www.nhl.com/news/nhl-announces-2026-27-regular-season-schedule
 - Toronto game confirmation: https://www.nhl.com/mapleleafs/video/easton-cowan-post-game-vs-new-york-islanders-6405998358112
 
 The API is public-facing but lacks a versioned schema contract here. The parser was reconciled against all downloaded sources; future schema changes may require repair. Respect the source terms; the separate raw-source archive preserves the downloaded NHL responses and provenance for reproducibility.

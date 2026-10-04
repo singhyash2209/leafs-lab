@@ -3,7 +3,7 @@
   "manifest": {
     "version": 1,
     "surface": "dashboard",
-    "title": "Leafs Lab \u2014 From a 2\u20131 Lead to Cup Chances",
+    "title": "Leafs Lab, From a 2-1 Lead to Cup Chances",
     "description": "Verified historical game probabilities and a model-based season forecast.",
     "generatedAt": "2026-10-03T10:07:42.265023+00:00",
     "filters": [],
@@ -12,10 +12,10 @@
         "id": "game_p",
         "dataset": "game_summary",
         "sourceId": "game",
-        "description": "September 30 retrospective state: Toronto leads 2\u20131 with 5:51 remaining. Excludes that game from training.",
+        "description": "September 30 retrospective state: Toronto leads 2-1 with 5:51 remaining. Excludes that game from training.",
         "metrics": [
           {
-            "label": "Toronto win estimate at 2\u20131",
+            "label": "Toronto win estimate at 2-1",
             "field": "toronto_probability",
             "format": "percent"
           }
@@ -109,7 +109,8 @@
           "y": {
             "field": "toronto_probability",
             "type": "quantitative",
-            "label": "Toronto Probability"
+            "label": "Toronto Probability",
+            "format": "percent"
           }
         }
       },
@@ -129,7 +130,8 @@
           "y": {
             "field": "observed_rate",
             "type": "quantitative",
-            "label": "Observed Rate"
+            "label": "Observed Rate",
+            "format": "percent"
           }
         }
       },
@@ -142,20 +144,20 @@
         "valueFormat": "number",
         "encodings": {
           "x": {
-            "field": "model",
+            "field": "model_label",
             "type": "nominal",
-            "label": "Model"
+            "label": "Prediction approach"
           },
           "y": {
             "field": "brier",
             "type": "quantitative",
-            "label": "Brier"
+            "label": "Brier score (lower is better)"
           }
         }
       },
       {
         "id": "cup",
-        "title": "Cup probabilities: top 10 and Toronto",
+        "title": "Stanley Cup win probability: top 10 teams and Toronto",
         "type": "bar",
         "dataset": "cup_comparison",
         "sourceId": "forecast",
@@ -164,12 +166,13 @@
           "x": {
             "field": "team",
             "type": "nominal",
-            "label": "Team"
+            "label": "NHL team (full names in table below)"
           },
           "y": {
             "field": "cup",
             "type": "quantitative",
-            "label": "Cup"
+            "label": "Chance of winning the Stanley Cup",
+            "format": "percent"
           }
         }
       }
@@ -177,7 +180,7 @@
     "tables": [
       {
         "id": "teams",
-        "title": "League forecast",
+        "title": "NHL league forecast: projected points and postseason chances",
         "dataset": "teams",
         "sourceId": "forecast",
         "defaultSort": {
@@ -186,33 +189,33 @@
         },
         "columns": [
           {
-            "field": "team",
-            "label": "Team",
+            "field": "team_name",
+            "label": "Full team name",
             "type": "text"
           },
           {
             "field": "elo",
-            "label": "Elo",
+            "label": "Team strength (Elo rating)",
             "format": "number"
           },
           {
             "field": "mean_points",
-            "label": "Expected points",
+            "label": "Projected season points",
             "format": "number"
           },
           {
             "field": "playoffs",
-            "label": "Playoffs",
+            "label": "Make playoffs",
             "format": "percent"
           },
           {
             "field": "final",
-            "label": "Final",
+            "label": "Reach Stanley Cup Final",
             "format": "percent"
           },
           {
             "field": "cup",
-            "label": "Cup",
+            "label": "Win Stanley Cup",
             "format": "percent"
           }
         ]
@@ -351,7 +354,7 @@
         "id": "game_guardrail",
         "type": "markdown",
         "sourceId": "model",
-        "body": "The calibrated model did not establish an improvement over the score/time baseline on the held-out season. Its 80\u201390% home-leading cohort also showed overconfidence. A correct prediction in one game does not validate a probability."
+        "body": "The calibrated model did not establish an improvement over the score/time baseline on the held-out season. Its 80-90% home-leading cohort also showed overconfidence. A correct prediction in one game does not validate a probability."
       },
       {
         "id": "block_game_curve",
@@ -367,6 +370,11 @@
         "id": "block_brier",
         "type": "chart",
         "chartId": "brier"
+      },
+      {
+        "id": "model_guide",
+        "type": "markdown",
+        "body": "### What the prediction approaches mean\n\n- **Calibrated model:** the selected game model after probability calibration.\n- **Score/time baseline:** a simpler prediction using the score and time remaining.\n- **Uncalibrated model:** the selected game model before calibration.\n- **Pregame strength only:** team-strength information before the game.\n- **Always 50/50:** assigns each side a 50% chance.\n\nThe x-axis compares prediction approaches. Brier score measures probability error; lower is better."
       },
       {
         "id": "season_guardrail",
@@ -386,6 +394,12 @@
         "id": "block_cup",
         "type": "chart",
         "chartId": "cup"
+      },
+      {
+        "id": "cup_guide",
+        "type": "markdown",
+        "sourceId": "forecast",
+        "body": "### Toronto's small bar explained\n\n**Toronto Maple Leafs: 0.25% chance of winning the Stanley Cup**, with 25 Cup wins in 10,000 simulated seasons. That is approximately 1 in 400 simulated seasons. The bar is small because all teams share one axis; it is not zero.\n\nToronto's projected points: 76.2, with an 80% simulation range of 56-97. Chance of making the playoffs: 14.37%; reaching the Stanley Cup Final: 0.60%.\n\nThe 95% Monte Carlo interval for the Cup estimate is 0.17%-0.37%. This measures simulation sampling error only. The experimental model can still be wrong; it does not include explicit injury, lineup or trade adjustments."
       },
       {
         "id": "league_table",
@@ -421,7 +435,8 @@
           "conference_final": 0.0166,
           "final": 0.006,
           "cup": 0.0025,
-          "cup_simulation_wins": 25
+          "cup_simulation_wins": 25,
+          "team_name": "Toronto Maple Leafs"
         }
       ],
       "game_summary": [
@@ -434,7 +449,7 @@
       ],
       "season_checks": [
         {
-          "season": "20232024",
+          "season": "2023-2024",
           "points_mae": 9.396106249999999,
           "playoff_brier": 0.15591404125,
           "playoff_baseline": 0.25,
@@ -442,7 +457,7 @@
           "cup_baseline": 0.0302734375
         },
         {
-          "season": "20242025",
+          "season": "2024-2025",
           "points_mae": 10.021131249999998,
           "playoff_brier": 0.21556553375,
           "playoff_baseline": 0.25,
@@ -450,7 +465,7 @@
           "cup_baseline": 0.0302734375
         },
         {
-          "season": "20252026",
+          "season": "2025-2026",
           "points_mae": 12.894559375,
           "playoff_brier": 0.27145895375,
           "playoff_baseline": 0.25,
@@ -470,7 +485,8 @@
           "conference_final": 0.3305,
           "final": 0.2225,
           "cup": 0.1147,
-          "cup_simulation_wins": 1147
+          "cup_simulation_wins": 1147,
+          "team_name": "Colorado Avalanche"
         },
         {
           "team": "MTL",
@@ -483,7 +499,8 @@
           "conference_final": 0.2387,
           "final": 0.1366,
           "cup": 0.0855,
-          "cup_simulation_wins": 855
+          "cup_simulation_wins": 855,
+          "team_name": "Montreal Canadiens"
         },
         {
           "team": "BUF",
@@ -496,7 +513,8 @@
           "conference_final": 0.2203,
           "final": 0.1232,
           "cup": 0.0737,
-          "cup_simulation_wins": 737
+          "cup_simulation_wins": 737,
+          "team_name": "Buffalo Sabres"
         },
         {
           "team": "CAR",
@@ -509,7 +527,8 @@
           "conference_final": 0.2232,
           "final": 0.1153,
           "cup": 0.0709,
-          "cup_simulation_wins": 709
+          "cup_simulation_wins": 709,
+          "team_name": "Carolina Hurricanes"
         },
         {
           "team": "DAL",
@@ -522,7 +541,8 @@
           "conference_final": 0.2034,
           "final": 0.1215,
           "cup": 0.0579,
-          "cup_simulation_wins": 579
+          "cup_simulation_wins": 579,
+          "team_name": "Dallas Stars"
         },
         {
           "team": "WSH",
@@ -535,7 +555,8 @@
           "conference_final": 0.1957,
           "final": 0.0941,
           "cup": 0.0536,
-          "cup_simulation_wins": 536
+          "cup_simulation_wins": 536,
+          "team_name": "Washington Capitals"
         },
         {
           "team": "MIN",
@@ -548,7 +569,8 @@
           "conference_final": 0.19,
           "final": 0.1125,
           "cup": 0.0529,
-          "cup_simulation_wins": 529
+          "cup_simulation_wins": 529,
+          "team_name": "Minnesota Wild"
         },
         {
           "team": "OTT",
@@ -561,7 +583,8 @@
           "conference_final": 0.1591,
           "final": 0.0872,
           "cup": 0.0483,
-          "cup_simulation_wins": 483
+          "cup_simulation_wins": 483,
+          "team_name": "Ottawa Senators"
         },
         {
           "team": "BOS",
@@ -574,7 +597,8 @@
           "conference_final": 0.1528,
           "final": 0.0814,
           "cup": 0.0447,
-          "cup_simulation_wins": 447
+          "cup_simulation_wins": 447,
+          "team_name": "Boston Bruins"
         },
         {
           "team": "STL",
@@ -587,7 +611,8 @@
           "conference_final": 0.1708,
           "final": 0.0992,
           "cup": 0.0443,
-          "cup_simulation_wins": 443
+          "cup_simulation_wins": 443,
+          "team_name": "St. Louis Blues"
         },
         {
           "team": "TBL",
@@ -600,7 +625,8 @@
           "conference_final": 0.1524,
           "final": 0.0792,
           "cup": 0.0437,
-          "cup_simulation_wins": 437
+          "cup_simulation_wins": 437,
+          "team_name": "Tampa Bay Lightning"
         },
         {
           "team": "UTA",
@@ -613,7 +639,8 @@
           "conference_final": 0.1375,
           "final": 0.0765,
           "cup": 0.0358,
-          "cup_simulation_wins": 358
+          "cup_simulation_wins": 358,
+          "team_name": "Utah Mammoth"
         },
         {
           "team": "ANA",
@@ -626,7 +653,8 @@
           "conference_final": 0.1644,
           "final": 0.0667,
           "cup": 0.0271,
-          "cup_simulation_wins": 271
+          "cup_simulation_wins": 271,
+          "team_name": "Anaheim Ducks"
         },
         {
           "team": "PHI",
@@ -639,7 +667,8 @@
           "conference_final": 0.1136,
           "final": 0.0499,
           "cup": 0.0261,
-          "cup_simulation_wins": 261
+          "cup_simulation_wins": 261,
+          "team_name": "Philadelphia Flyers"
         },
         {
           "team": "PIT",
@@ -652,7 +681,8 @@
           "conference_final": 0.114,
           "final": 0.0504,
           "cup": 0.0258,
-          "cup_simulation_wins": 258
+          "cup_simulation_wins": 258,
+          "team_name": "Pittsburgh Penguins"
         },
         {
           "team": "NJD",
@@ -665,7 +695,8 @@
           "conference_final": 0.108,
           "final": 0.0472,
           "cup": 0.0238,
-          "cup_simulation_wins": 238
+          "cup_simulation_wins": 238,
+          "team_name": "New Jersey Devils"
         },
         {
           "team": "EDM",
@@ -678,7 +709,8 @@
           "conference_final": 0.1702,
           "final": 0.0613,
           "cup": 0.0224,
-          "cup_simulation_wins": 224
+          "cup_simulation_wins": 224,
+          "team_name": "Edmonton Oilers"
         },
         {
           "team": "VGK",
@@ -691,7 +723,8 @@
           "conference_final": 0.1442,
           "final": 0.0564,
           "cup": 0.0221,
-          "cup_simulation_wins": 221
+          "cup_simulation_wins": 221,
+          "team_name": "Vegas Golden Knights"
         },
         {
           "team": "CBJ",
@@ -704,7 +737,8 @@
           "conference_final": 0.0974,
           "final": 0.0425,
           "cup": 0.0216,
-          "cup_simulation_wins": 216
+          "cup_simulation_wins": 216,
+          "team_name": "Columbus Blue Jackets"
         },
         {
           "team": "SJS",
@@ -717,7 +751,8 @@
           "conference_final": 0.1229,
           "final": 0.0467,
           "cup": 0.0155,
-          "cup_simulation_wins": 155
+          "cup_simulation_wins": 155,
+          "team_name": "San Jose Sharks"
         },
         {
           "team": "FLA",
@@ -730,7 +765,8 @@
           "conference_final": 0.0717,
           "final": 0.0315,
           "cup": 0.0143,
-          "cup_simulation_wins": 143
+          "cup_simulation_wins": 143,
+          "team_name": "Florida Panthers"
         },
         {
           "team": "NSH",
@@ -743,7 +779,8 @@
           "conference_final": 0.0675,
           "final": 0.0296,
           "cup": 0.0109,
-          "cup_simulation_wins": 109
+          "cup_simulation_wins": 109,
+          "team_name": "Nashville Predators"
         },
         {
           "team": "NYI",
@@ -756,7 +793,8 @@
           "conference_final": 0.0518,
           "final": 0.021,
           "cup": 0.01,
-          "cup_simulation_wins": 100
+          "cup_simulation_wins": 100,
+          "team_name": "New York Islanders"
         },
         {
           "team": "WPG",
@@ -769,7 +807,8 @@
           "conference_final": 0.0576,
           "final": 0.027,
           "cup": 0.0099,
-          "cup_simulation_wins": 99
+          "cup_simulation_wins": 99,
+          "team_name": "Winnipeg Jets"
         },
         {
           "team": "NYR",
@@ -782,7 +821,8 @@
           "conference_final": 0.0495,
           "final": 0.0194,
           "cup": 0.0094,
-          "cup_simulation_wins": 94
+          "cup_simulation_wins": 94,
+          "team_name": "New York Rangers"
         },
         {
           "team": "CGY",
@@ -795,7 +835,8 @@
           "conference_final": 0.0701,
           "final": 0.0241,
           "cup": 0.0086,
-          "cup_simulation_wins": 86
+          "cup_simulation_wins": 86,
+          "team_name": "Calgary Flames"
         },
         {
           "team": "LAK",
@@ -808,7 +849,8 @@
           "conference_final": 0.0813,
           "final": 0.0285,
           "cup": 0.0085,
-          "cup_simulation_wins": 85
+          "cup_simulation_wins": 85,
+          "team_name": "Los Angeles Kings"
         },
         {
           "team": "SEA",
@@ -821,7 +863,8 @@
           "conference_final": 0.0622,
           "final": 0.0191,
           "cup": 0.007,
-          "cup_simulation_wins": 70
+          "cup_simulation_wins": 70,
+          "team_name": "Seattle Kraken"
         },
         {
           "team": "DET",
@@ -834,7 +877,8 @@
           "conference_final": 0.0352,
           "final": 0.0151,
           "cup": 0.0062,
-          "cup_simulation_wins": 62
+          "cup_simulation_wins": 62,
+          "team_name": "Detroit Red Wings"
         },
         {
           "team": "TOR",
@@ -847,7 +891,8 @@
           "conference_final": 0.0166,
           "final": 0.006,
           "cup": 0.0025,
-          "cup_simulation_wins": 25
+          "cup_simulation_wins": 25,
+          "team_name": "Toronto Maple Leafs"
         },
         {
           "team": "VAN",
@@ -860,7 +905,8 @@
           "conference_final": 0.0184,
           "final": 0.005,
           "cup": 0.0012,
-          "cup_simulation_wins": 12
+          "cup_simulation_wins": 12,
+          "team_name": "Vancouver Canucks"
         },
         {
           "team": "CHI",
@@ -873,7 +919,8 @@
           "conference_final": 0.009,
           "final": 0.0034,
           "cup": 0.0011,
-          "cup_simulation_wins": 11
+          "cup_simulation_wins": 11,
+          "team_name": "Chicago Blackhawks"
         }
       ],
       "cup_comparison": [
@@ -888,7 +935,8 @@
           "conference_final": 0.3305,
           "final": 0.2225,
           "cup": 0.1147,
-          "cup_simulation_wins": 1147
+          "cup_simulation_wins": 1147,
+          "team_name": "Colorado Avalanche"
         },
         {
           "team": "MTL",
@@ -901,7 +949,8 @@
           "conference_final": 0.2387,
           "final": 0.1366,
           "cup": 0.0855,
-          "cup_simulation_wins": 855
+          "cup_simulation_wins": 855,
+          "team_name": "Montreal Canadiens"
         },
         {
           "team": "BUF",
@@ -914,7 +963,8 @@
           "conference_final": 0.2203,
           "final": 0.1232,
           "cup": 0.0737,
-          "cup_simulation_wins": 737
+          "cup_simulation_wins": 737,
+          "team_name": "Buffalo Sabres"
         },
         {
           "team": "CAR",
@@ -927,7 +977,8 @@
           "conference_final": 0.2232,
           "final": 0.1153,
           "cup": 0.0709,
-          "cup_simulation_wins": 709
+          "cup_simulation_wins": 709,
+          "team_name": "Carolina Hurricanes"
         },
         {
           "team": "DAL",
@@ -940,7 +991,8 @@
           "conference_final": 0.2034,
           "final": 0.1215,
           "cup": 0.0579,
-          "cup_simulation_wins": 579
+          "cup_simulation_wins": 579,
+          "team_name": "Dallas Stars"
         },
         {
           "team": "WSH",
@@ -953,7 +1005,8 @@
           "conference_final": 0.1957,
           "final": 0.0941,
           "cup": 0.0536,
-          "cup_simulation_wins": 536
+          "cup_simulation_wins": 536,
+          "team_name": "Washington Capitals"
         },
         {
           "team": "MIN",
@@ -966,7 +1019,8 @@
           "conference_final": 0.19,
           "final": 0.1125,
           "cup": 0.0529,
-          "cup_simulation_wins": 529
+          "cup_simulation_wins": 529,
+          "team_name": "Minnesota Wild"
         },
         {
           "team": "OTT",
@@ -979,7 +1033,8 @@
           "conference_final": 0.1591,
           "final": 0.0872,
           "cup": 0.0483,
-          "cup_simulation_wins": 483
+          "cup_simulation_wins": 483,
+          "team_name": "Ottawa Senators"
         },
         {
           "team": "BOS",
@@ -992,7 +1047,8 @@
           "conference_final": 0.1528,
           "final": 0.0814,
           "cup": 0.0447,
-          "cup_simulation_wins": 447
+          "cup_simulation_wins": 447,
+          "team_name": "Boston Bruins"
         },
         {
           "team": "STL",
@@ -1005,7 +1061,8 @@
           "conference_final": 0.1708,
           "final": 0.0992,
           "cup": 0.0443,
-          "cup_simulation_wins": 443
+          "cup_simulation_wins": 443,
+          "team_name": "St. Louis Blues"
         },
         {
           "team": "TOR",
@@ -1018,7 +1075,8 @@
           "conference_final": 0.0166,
           "final": 0.006,
           "cup": 0.0025,
-          "cup_simulation_wins": 25
+          "cup_simulation_wins": 25,
+          "team_name": "Toronto Maple Leafs"
         }
       ],
       "game": [
@@ -2479,27 +2537,32 @@
         {
           "model": "selected_calibrated",
           "brier": 0.17850669702721916,
-          "accuracy": 0.7129699897594999
+          "accuracy": 0.7129699897594999,
+          "model_label": "Calibrated model"
         },
         {
           "model": "baseline",
           "brier": 0.17632895875623825,
-          "accuracy": 0.7064054493379289
+          "accuracy": 0.7064054493379289,
+          "model_label": "Score/time baseline"
         },
         {
           "model": "selected_raw",
           "brier": 0.17699955342280546,
-          "accuracy": 0.7073807492882084
+          "accuracy": 0.7073807492882084,
+          "model_label": "Uncalibrated model"
         },
         {
           "model": "pregame_only",
           "brier": 0.2518796285212596,
-          "accuracy": 0.5388719512195124
+          "accuracy": 0.5388719512195124,
+          "model_label": "Pregame strength only"
         },
         {
           "model": "constant_50_percent",
           "brier": 0.25,
-          "accuracy": 0.5221036585365854
+          "accuracy": 0.5221036585365854,
+          "model_label": "Always 50/50"
         }
       ],
       "calibration": [
