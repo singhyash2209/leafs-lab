@@ -46,11 +46,15 @@ def readable(artifact, forecast):
     cup_guide={'id':'cup_guide','type':'markdown','sourceId':'forecast','body':f"### Toronto's small bar explained\n\n**Toronto Maple Leafs: {tor['cup']:.2%} chance of winning the Stanley Cup**, with {tor['cup_simulation_wins']:,} Cup wins in {n:,} simulated seasons. {frequency}\n\nToronto's projected points: {tor['mean_points']:.1f}, with an 80% simulation range of {tor['points_p10']:.0f}-{tor['points_p90']:.0f}. Chance of making the playoffs: {tor['playoffs']:.2%}; reaching the Stanley Cup Final: {tor['final']:.2%}.\n\nThe 95% Monte Carlo interval for the Cup estimate is {lo:.2%}-{hi:.2%}. This measures simulation sampling error only. The experimental model can still be wrong; it does not include explicit injury, lineup or trade adjustments."}
     m['blocks']=[b for b in m['blocks'] if b['id'] not in ['model_guide','cup_guide']]
     for target,block in [('block_brier',model_guide),('block_cup',cup_guide)]:
-        idx=next(i for i,b in enumerate(m['blocks']) if b['id']==target);m['blocks'].insert(idx+1,block)
+        idx=next((i for i,b in enumerate(m['blocks']) if b['id']==target),None)
+        if idx is not None: m['blocks'].insert(idx+1,block)
     # Keep operational details in GitHub; the public page leads with hockey.
     season=str(forecast['season']); label=season[:4]+'-'+season[4:]
     intro['body']='# '+m['title']+'\n\nA game-night question: how likely is Toronto to win from a 2-1 lead?'
-    m['blocks']=[b for b in m['blocks'] if b['id']!='automation_status']
+    hidden={'automation_status','block_reliability','block_brier','model_guide','season_table'}
+    m['blocks']=[b for b in m['blocks'] if b['id'] not in hidden]
+    next(b for b in m['blocks'] if b['id']=='game_headline')['cardIds']=['game_p']
+    next(b for b in m['blocks'] if b['id']=='game_guardrail')['body']='A retrospective model estimate, not a guaranteed result. The model did not beat the simpler score/time baseline on held-out games. Full validation and methodology are available in the linked GitHub repository.'
     next(b for b in m['blocks'] if b['id']=='season_guardrail')['body']='## '+label+' Stanley Cup Forecast\n\nExperimental model estimates. Cup intervals describe simulation error, not full model uncertainty.'
     return artifact
 
