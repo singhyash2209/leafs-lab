@@ -12,5 +12,6 @@ const displayArtifact=structuredClone(artifact);
 delete displayArtifact.manifest.generatedAt;
 delete displayArtifact.snapshot.generatedAt;
 const runtimeEncoded=readFileSync(new URL('./portable/reader.gz.base64',import.meta.url),'utf8').trim();
-writeFileSync('outputs/dashboard.html',buildPortableArtifact(displayArtifact,{runtimeEncoded}));
+const html=buildPortableArtifact(displayArtifact,{runtimeEncoded}).replace('</head>', '<style>.analytics-reader-freshness{display:none!important}</style></head>');
+writeFileSync('outputs/dashboard.html',html);
 console.log('Built self-contained dashboard with packaged portable reader');
