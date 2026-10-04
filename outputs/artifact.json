@@ -3,7 +3,7 @@
   "manifest": {
     "version": 1,
     "surface": "dashboard",
-    "title": "Leafs Lab, From a 2-1 Lead to Cup Chances",
+    "title": "Leafs Lab - From a 2-1 Lead to Cup Chances",
     "description": "Verified historical game probabilities and a model-based season forecast.",
     "generatedAt": "2026-10-03T10:07:42.265023+00:00",
     "filters": [],
@@ -146,7 +146,7 @@
           "x": {
             "field": "model_label",
             "type": "nominal",
-            "label": "Prediction approach"
+            "label": "Prediction Approach"
           },
           "y": {
             "field": "brier",
@@ -158,15 +158,15 @@
       {
         "id": "cup",
         "title": "Stanley Cup win probability: top 10 teams and Toronto",
-        "type": "bar",
+        "type": "horizontalBar",
         "dataset": "cup_comparison",
         "sourceId": "forecast",
         "valueFormat": "percent",
         "encodings": {
           "x": {
-            "field": "team",
+            "field": "team_name",
             "type": "nominal",
-            "label": "NHL team (full names in table below)"
+            "label": "NHL Team"
           },
           "y": {
             "field": "cup",
@@ -339,7 +339,7 @@
       {
         "id": "intro",
         "type": "markdown",
-        "body": "# Leafs Lab\n\nFrom the September 30 game to a testable forecasting project. Season snapshot: 2026-10-03."
+        "body": "# Leafs Lab - From a 2-1 Lead to Cup Chances\n\nFrom the September 30 game to a testable forecasting project. Season snapshot: 2026-10-03."
       },
       {
         "id": "game_headline",
@@ -374,7 +374,7 @@
       {
         "id": "model_guide",
         "type": "markdown",
-        "body": "### What the prediction approaches mean\n\n- **Calibrated model:** the selected game model after probability calibration.\n- **Score/time baseline:** a simpler prediction using the score and time remaining.\n- **Uncalibrated model:** the selected game model before calibration.\n- **Pregame strength only:** team-strength information before the game.\n- **Always 50/50:** assigns each side a 50% chance.\n\nThe x-axis compares prediction approaches. Brier score measures probability error; lower is better."
+        "body": "### What the prediction approaches mean\n\n- **Calibrated Model:** the selected game model after probability calibration.\n- **Score/Time Baseline:** a simpler prediction using the score and time remaining.\n- **Uncalibrated Model:** the selected game model before calibration.\n- **Pregame Strength Only:** team-strength information before the game.\n- **Always 50/50:** assigns each side a 50% chance.\n\nThe x-axis compares prediction approaches. Brier score measures probability error; lower is better."
       },
       {
         "id": "season_guardrail",
@@ -2538,25 +2538,25 @@
           "model": "selected_calibrated",
           "brier": 0.17850669702721916,
           "accuracy": 0.7129699897594999,
-          "model_label": "Calibrated model"
+          "model_label": "Calibrated Model"
         },
         {
           "model": "baseline",
           "brier": 0.17632895875623825,
           "accuracy": 0.7064054493379289,
-          "model_label": "Score/time baseline"
+          "model_label": "Score/Time Baseline"
         },
         {
           "model": "selected_raw",
           "brier": 0.17699955342280546,
           "accuracy": 0.7073807492882084,
-          "model_label": "Uncalibrated model"
+          "model_label": "Uncalibrated Model"
         },
         {
           "model": "pregame_only",
           "brier": 0.2518796285212596,
           "accuracy": 0.5388719512195124,
-          "model_label": "Pregame strength only"
+          "model_label": "Pregame Strength Only"
         },
         {
           "model": "constant_50_percent",
