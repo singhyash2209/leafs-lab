@@ -32,7 +32,7 @@ html:not([data-portable-source-tooltips-ready]) .portable-chart-summary>.portabl
 @media print{.portable-source-tooltip{cursor:inherit;text-decoration:none}.portable-source-tooltip>.portable-source-tooltip-content,.portable-source-tooltip-content[data-portable-source-tooltip-mobile-portaled]{display:none!important}.portable-inline-source{position:static!important;inset:auto!important;display:block!important;width:auto!important;height:auto!important;margin-top:8px!important;padding-top:6px!important;text-align:left!important}.portable-source-tooltip-content,.portable-source-summary-content{position:static!important;inset:auto!important;display:block!important;width:auto!important;max-width:none!important;max-height:none!important;padding:0!important;overflow:visible!important;background:transparent!important;box-shadow:none!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:none!important}.portable-source-tooltip-content,.portable-source-tooltip-content *,.portable-source-summary-content,.portable-source-summary-content *{color:var(--portable-muted)!important}.portable-source-tooltip-heading,.portable-source-context{display:none!important}}
 @media print{:root{--portable-border:rgba(13,13,13,.05)}}
 </style>
-</head>
+<style>.analytics-reader-freshness{display:none!important}</style></head>
 <body><nav style="padding:16px 24px;font:16px/1.5 system-ui;background:#003e7e;color:white"><strong>Leafs Lab</strong> · <a style="color:white" href="archive.html">Season archive</a> · <a style="color:white" href="https://github.com/singhyash2209/leafs-lab">Python code and methodology</a> · 2026-2027 Stanley Cup Forecast</nav>
 <main id="data-analytics-portable-fallback" class="portable-fallback" data-portable-fallback="true" data-portable-surface="dashboard"><header class="portable-page-header"><div class="portable-page-heading"><p class="portable-surface-label">Data Analytics dashboard</p><h1>Leafs Lab - From a 2-1 Lead to Cup Chances</h1><p class="portable-description">Verified historical game probabilities and a model-based season forecast.</p></div><div class="portable-page-meta"></div></header><div class="portable-block-stack"><div class="portable-block portable-layout-full" data-artifact-block-id="intro" data-artifact-block-type="markdown" data-layout="full"><section class="portable-markdown"><p>A game-night question: how likely is Toronto to win from a 2-1 lead?</p></section></div>
 <div class="portable-block portable-layout-full" data-artifact-block-id="game_headline" data-artifact-block-type="metric-strip" data-layout="full"><section class="portable-metric-grid"><article class="portable-metric-card" data-artifact-id="metric:game_headline:game_p" data-artifact-kind="card" data-card-id="game_p"><p class="portable-metric-label">Toronto win estimate at 2-1</p><p class="portable-metric-value"><span class="portable-source-tooltip portable-source-value" data-portable-source-host="true" tabindex="0" aria-describedby="portable-source-tooltip-1"><span class="portable-source-value-text">85.9%</span><span class="portable-source-tooltip-content" id="portable-source-tooltip-1" role="tooltip"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for 85.9%</span><strong>Source: Toronto game reconstruction</strong><span class="portable-source-meta">Tables: game_states, outputs/model.joblib</span></span></span></p><p class="portable-card-description">September 30 retrospective state: Toronto leads 2-1 with 5:51 remaining. Excludes that game from training.</p><div class="portable-inline-source portable-source-summary" data-source-id="game"><div class="portable-inline-source-content portable-source-summary-content"><span class="portable-source-tooltip-heading" aria-hidden="true">Source for Toronto win estimate at 2-1</span><span class="portable-source-context">September 30 retrospective state: Toronto leads 2-1 with 5:51 remaining. Excludes that game from training.</span><strong>Source: Toronto game reconstruction</strong><span class="portable-source-meta">Tables: game_states, outputs/model.joblib</span><p class="portable-source-description-data">Post-event win probabilities from the frozen calibrated model. Database: outputs/dashboard_sources.sqlite; reproduce through leafslab/dashboard_sql.py.</p><pre class="portable-source-query-data" aria-hidden="true"><code>SELECT elapsed/60.0 AS minute,
@@ -129,7 +129,7 @@ SELECT MIN(9,CAST(prediction*10 AS INTEGER)) AS bin,
  SUM(weight*prediction)/SUM(weight) AS mean_prediction,
  SUM(weight*home_win)/SUM(weight) AS observed_rate,
  COUNT(DISTINCT game_id) AS games, COUNT(*) AS states
- FROM test_predictions GROUP BY bin ORDER BY bin;</code></pre></details></li><li><strong>Schedule and standings Monte Carlo</strong><span class="portable-source-meta">queries/forecast.sql · SQLite · 2026-10-04T08:32:33.166157+00:00</span><p>SQL recomputation from current Monte Carlo counts in an in-memory SQLite database; validated against outputs/forecast.json. Python fetches NHL schedules and dated standings before simulation.</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT team,elo,points_sum*1.0/simulations AS mean_points,
+ FROM test_predictions GROUP BY bin ORDER BY bin;</code></pre></details></li><li><strong>Schedule and standings Monte Carlo</strong><span class="portable-source-meta">queries/forecast.sql · SQLite · 2026-10-04T08:35:14.598722+00:00</span><p>SQL recomputation from current Monte Carlo counts in an in-memory SQLite database; validated against outputs/forecast.json. Python fetches NHL schedules and dated standings before simulation.</p><details class="portable-source-query" open><summary>SQL query</summary><pre><code>SELECT team,elo,points_sum*1.0/simulations AS mean_points,
  points_p10,points_p90,playoffs_count*1.0/simulations AS playoffs,
  round_2_count*1.0/simulations AS round_2,
  conference_final_count*1.0/simulations AS conference_final,
@@ -526,8 +526,8 @@ H+hNlpYOndncB7Qdd7jN5f+THhEi6rFLsvEm/CnWyyckwk8b+aGdCPtHQBI3D68Irt9bGTyuw9np
 LFun5SEw9RMAI8/W6XxKjz+8eQCenWXpjctdOnNTHwsff6n7JLz9wCvb56qF4zHA69V498TmynT3
 EKjwVtvq2akeLnb6NVuv0Ivzy7Mx8H1f0y7/9hrlDhav67LK2vtqx2yd51AHaEgE2kCOU2RTFKcn
 S7fM8ntUzTKab9TuGfpsk3juU+D21sZpUW4VcStCvxSgxu/uywUgdOVs4QofmhUbwazWhRWUnXxe
-O4DQyCQeUMoOIzo6aYtpdtNUHz4aj2brEoJgwNbSLJDcnfpKiqkajxqTNJoQjDE+rpv8CusJoxPG
-IiIlEWpPN2/bS8464ebLTjAtaVHm69nh+NSbu0BlrAoaG8ZXIfCHFy+7KuoSuyrc/KkEZwu66FOK
+O4DQyCQeUMoOIzo6aYtpdtNUHz4aj2brEoJgwNbSLJDcnfpKiqkajxqTNJoQjDE+rpv8CusJExPC
+I2G0onRPN2/bS8464ebLTjAtaVHm69nh+NSbu0BlrAoaG8ZXIfCHFy+7KuoSuyrc/KkEZwu66FOK
 3iFsPTc4kW++vnr7/mvvoD+mqHYrTV/+6DazyXQe39yMtzW2sU/cTGdJNvs0rv1/kt3G5bhYZGX1
 dPHJli6v/vaA3XJV3o/tnb3f/FnEZeUPpsu4KGB9/TGtQgQS4ZP/EYO5eAHcO5B5HVfMgvEUY+Th
 +L9rba6qXd4R7DR5Myv7OvwuK8qTqm7XTmtBbbYqXi58FRN8arfW9e90mA2yRuNRja0axi/ZdRJf
@@ -682,19 +682,19 @@ N1nuZrYoG+7wcrZw83XikE3nMG3pHD7wi+Bzew6d2TzJ9t1hDeaf9YjwTaWxS7Lx5vNOxXr5hET4
 9ZnSY4DXq/Huic2V7neqam2rZ6d6uNjp12y9Qi/OL8/GwPd9Tbv822uUO/hU6rr0UNFNni3RbJ3n
 Li2bEoE2kOMU2RTF6cnSLbP8HlWzjOYbtXuGPtsknvvFrr21cVqUW0XcitAvBajxu/tyAQhdOVu4
 wodmxUYwCy+ZFZSdfF47gIB2LDiglB1GdHTSFtPspqk+fASf/yqzm5vp3MejDc0Cyd2pr6T+xMLG
-JPmvLGJ8XDf5FdYTRmFXIJGSCLWnm/7jYTu9rL8x5pfuMC1pUebr2eH41Ju7QGVEd3G5qBlfhcAf
-XrzsqqhL7Kpw86cSnC3oos8+eYew9dzgRL75+urt+6+9g/6YotqtNH35I0gwTefxzc04d0sbw/cO
-xwXkYaazJJt9Gtf+P8lu43JcLLKyerr4ZEuXV397wG65Ku/HPmlV/VnEZeUPpsu4KOL09vHHtAoR
-SIRP/kcM5uIFcO9Agm6Mdsm4Mdpl4mpt9qOoHMFOkzezsq/D77KiPHGfQV8hXtrhiV1RqXO5cPAH
-+NRGLqpa4PwbHWaDrNF4VGOrhvFLdp3E16Cuf9jRVco6hUihoVPv4Tv2xcrNyvizQ6vcbQKK2cLB
-x8D31KoB5Z91dT6s26A7vURX5/91VQVK/hLo0+kP3z46fX75yH1ZVSuMyrmd2Fm5tsnmVxUAbtze
-0rr6xUerae3eti9sfkN0fvzm44ZnnG4XjpCFat3YLK0a6GbrVQ1stl55JJ1Lj2s/tQXLwLURTHll
-S/y9DeRa3DcsPxgsbti31YLq974SXC1y51CeJUmc3p5keXwbp6g11SC9n+PC+7gsSbI7N0f1SPwt
-dxeht+tyli1d4Q1lnCJnZ4sajM0dmruVS+cuLf+derPPnz+kJz+DrM8+2Vs3jdObzPvDvIxv7Kx8
-v07L2H/mcpXlHvtJfeskd3bu8mhRLhPP9ST+7PJ7SGQ3Hp9ubi+yonTz987O3zaC2+Xhh+vf38HP
-zaN559UZfAI6S7z3nmWr+9Pi1dKr4I1NCufH48rGz9zebn+4eVzufnwBdJ2f3/nhvo7TT9sbN+sk
-KWa5c+n20mL/qZXLi7goIezbXsvdTe6KReN3ls8hm775XSxsXj/9++/byXj151z8/56L3/8b11bz
-MfXNAAA=
+JPmvLGJ8XDf5FdYTJuA0TGG0onRPN/3Hw3Z6WX9jzC/dYVrSoszXs8PxqTd3gcqI7uJyUTO+CoE/
+vHjZVVGX2FXh5k8lOFvQRZ998g5h67nBiXzz9dXb9197B/0xRbVbafryR5Bgms7jm5tx7pY2hu8d
+jgvIw0xnSTb7NK79f5LdxuW4WGRl9XTxyZYur/72gN1yVd6PfdKq+rOIy8ofTJdxUcTp7eOPaRUi
+kAif/I8YzMUL4N6BBN0Y7ZJxY7TLxNXa7EdROYKdJm9mZV+H32VFeeI+g75CvLTDE7uiUudy4eAP
+8KmNXFS1wPk3OswGWaPxqMZWDeOX7DqJr0Fd/7Cjq5R1CpFCQ6few3fsi5WblfFnh1a52wQUs4WD
+j4HvqVUDyj/r6nxYt0F3eomuzv/rqgqU/CXQp9Mfvn10+vzykfuyqlYYlXM7sbNybZPNryoA3Li9
+pXX1i49W09q9bV/Y/Ibo/PjNxw3PON0uHCEL1bqxWVo10M3WqxrYbL3ySDqXHtd+aguWgWsjmPLK
+lvh7G8i1uG9YfjBY3LBvqwXV730luFrkzqE8S5I4vT3J8vg2TlFrqkF6P8eF93FZkmR3bo7qkfhb
+7i5Cb9flLFu6whvKOEXOzhY1GJs7NHcrl85dWv479WafP39IT34GWZ99srduGqc3mfeHeRnf2Fn5
+fp2Wsf/M5SrLPfaT+tZJ7uzc5dGiXCae60n82eX3kMhuPD7d3F5kRenm752dv20Et8vDD9e/v4Of
+m0fzzqsz+AR0lnjvPctW96fFq6VXwRubFM6Px5WNn7m93f5w87jc/fgC6Do/v/PDfR2nn7Y3btZJ
+Usxy59LtpcX+UyuXF3FRQti3vZa7m9wVi8bvLJ9DNn3zu1jYvH7699+3k/Hqz7n4/z0Xv/83k7XI
+v/XNAAA=
 </template>
 <template id="data-analytics-portable-reader-runtime-source" data-compression="gzip-base64">
 H4sIAAAAAAACA+y9a3fjNrYg+v38CilTV0MeQ4pk15MyyqfiR6e665VyVdLVjseESUhCTIEKCNnl

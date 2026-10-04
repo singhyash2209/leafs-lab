@@ -5,7 +5,7 @@
     "surface": "dashboard",
     "title": "Leafs Lab - From a 2-1 Lead to Cup Chances",
     "description": "Verified historical game probabilities and a model-based season forecast.",
-    "generatedAt": "2026-10-04T08:32:33.166157+00:00",
+    "generatedAt": "2026-10-04T08:35:14.598722+00:00",
     "filters": [],
     "cards": [
       {
@@ -302,7 +302,7 @@
             "season": 20262027,
             "simulations": 10000
           },
-          "executed_at": "2026-10-04T08:32:33.166157+00:00"
+          "executed_at": "2026-10-04T08:35:14.598722+00:00"
         }
       },
       {
@@ -400,7 +400,7 @@
   },
   "snapshot": {
     "version": 1,
-    "generatedAt": "2026-10-04T08:32:33.166157+00:00",
+    "generatedAt": "2026-10-04T08:35:14.598722+00:00",
     "status": "ready",
     "datasets": {
       "toronto": [
@@ -2659,7 +2659,7 @@
           "season": 20262027,
           "simulations": 10000
         },
-        "executed_at": "2026-10-04T08:32:33.166157+00:00"
+        "executed_at": "2026-10-04T08:35:14.598722+00:00"
       }
     },
     {
