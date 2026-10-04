@@ -7,6 +7,10 @@ if(artifact.surface!=='dashboard'||artifact.snapshot?.status!=='ready'||!dataset
 for(const spec of [...artifact.manifest.cards,...artifact.manifest.charts,...artifact.manifest.tables]) {
  if(!Array.isArray(datasets[spec.dataset])) throw Error('Missing dataset: '+spec.dataset);
 }
+// Keep audit timestamps in the saved artifact, but omit the reader's header clock.
+const displayArtifact=structuredClone(artifact);
+delete displayArtifact.manifest.generatedAt;
+delete displayArtifact.snapshot.generatedAt;
 const runtimeEncoded=readFileSync(new URL('./portable/reader.gz.base64',import.meta.url),'utf8').trim();
-writeFileSync('outputs/dashboard.html',buildPortableArtifact(artifact,{runtimeEncoded}));
+writeFileSync('outputs/dashboard.html',buildPortableArtifact(displayArtifact,{runtimeEncoded}));
 console.log('Built self-contained dashboard with packaged portable reader');

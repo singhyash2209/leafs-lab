@@ -47,6 +47,11 @@ def readable(artifact, forecast):
     m['blocks']=[b for b in m['blocks'] if b['id'] not in ['model_guide','cup_guide']]
     for target,block in [('block_brier',model_guide),('block_cup',cup_guide)]:
         idx=next(i for i,b in enumerate(m['blocks']) if b['id']==target);m['blocks'].insert(idx+1,block)
+    # Keep operational details in GitHub; the public page leads with hockey.
+    season=str(forecast['season']); label=season[:4]+'-'+season[4:]
+    intro['body']='# '+m['title']+'\n\nA game-night question: how likely is Toronto to win from a 2-1 lead?'
+    m['blocks']=[b for b in m['blocks'] if b['id']!='automation_status']
+    next(b for b in m['blocks'] if b['id']=='season_guardrail')['body']='## '+label+' Stanley Cup Forecast\n\nExperimental model estimates. Cup intervals describe simulation error, not full model uncertainty.'
     return artifact
 
 if __name__=='__main__':
