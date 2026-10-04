@@ -5,7 +5,7 @@
     "surface": "dashboard",
     "title": "Leafs Lab - From a 2-1 Lead to Cup Chances",
     "description": "Verified historical game probabilities and a model-based season forecast.",
-    "generatedAt": "2026-10-04T08:30:09.301188+00:00",
+    "generatedAt": "2026-10-04T08:32:33.166157+00:00",
     "filters": [],
     "cards": [
       {
@@ -302,7 +302,7 @@
             "season": 20262027,
             "simulations": 10000
           },
-          "executed_at": "2026-10-04T08:30:09.301188+00:00"
+          "executed_at": "2026-10-04T08:32:33.166157+00:00"
         }
       },
       {
@@ -347,36 +347,19 @@
         "id": "game_headline",
         "type": "metric-strip",
         "cardIds": [
-          "game_p",
-          "accuracy",
-          "brier"
+          "game_p"
         ]
       },
       {
         "id": "game_guardrail",
         "type": "markdown",
         "sourceId": "model",
-        "body": "The calibrated model did not establish an improvement over the score/time baseline on the held-out season. Its 80-90% home-leading cohort also showed overconfidence. A correct prediction in one game does not validate a probability."
+        "body": "A retrospective model estimate, not a guaranteed result. The model did not beat the simpler score/time baseline on held-out games. Full validation and methodology are available in the linked GitHub repository."
       },
       {
         "id": "block_game_curve",
         "type": "chart",
         "chartId": "game_curve"
-      },
-      {
-        "id": "block_reliability",
-        "type": "chart",
-        "chartId": "reliability"
-      },
-      {
-        "id": "block_brier",
-        "type": "chart",
-        "chartId": "brier"
-      },
-      {
-        "id": "model_guide",
-        "type": "markdown",
-        "body": "### What the prediction approaches mean\n\n- **Calibrated Model:** the selected game model after probability calibration.\n- **Score/Time Baseline:** a simpler prediction using the score and time remaining.\n- **Uncalibrated Model:** the selected game model before calibration.\n- **Pregame Strength Only:** team-strength information before the game.\n- **Always 50/50:** assigns each side a 50% chance.\n\nThe x-axis compares prediction approaches. Brier score measures probability error; lower is better."
       },
       {
         "id": "season_guardrail",
@@ -409,11 +392,6 @@
         "tableId": "teams"
       },
       {
-        "id": "season_table",
-        "type": "table",
-        "tableId": "season_checks"
-      },
-      {
         "id": "limits",
         "type": "markdown",
         "body": "## Model limits\n\n- One latent team-strength draw per simulated season; SD estimated from training-season Elo drift, not a calibrated posterior. No explicit injury, lineup or trade adjustments.\n- Independent Poisson regulation goals; all simulated ties resolve in overtime.\n- Standings ties approximate official rules: no head-to-head tie-break.\n- Playoff game probabilities use regular-season Elo; no separate playoff fit.\n- Cup intervals show simulation error only, not forecasting/model uncertainty.\n\nGame features: score, time remaining, prior team strength, shots, skaters and goalie-pulled indicators. Calibration and feature importance describe predictions; they do not establish causality."
@@ -422,7 +400,7 @@
   },
   "snapshot": {
     "version": 1,
-    "generatedAt": "2026-10-04T08:30:09.301188+00:00",
+    "generatedAt": "2026-10-04T08:32:33.166157+00:00",
     "status": "ready",
     "datasets": {
       "toronto": [
@@ -2681,7 +2659,7 @@
           "season": 20262027,
           "simulations": 10000
         },
-        "executed_at": "2026-10-04T08:30:09.301188+00:00"
+        "executed_at": "2026-10-04T08:32:33.166157+00:00"
       }
     },
     {
