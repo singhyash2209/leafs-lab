@@ -1,31 +1,34 @@
-# Leafs Lab - Game Night Win Probability
+# Leafs Lab - From a 2-1 Lead to Cup Chances
 
 [Open the dashboard](https://singhyash2209.github.io/leafs-lab/)
 
-A retrospective win-probability dashboard for **Toronto Maple Leafs vs New York Islanders on September 30, 2026**.
+A game-night win probability study with model validation and an experimental Stanley Cup comparison.
 
-At Toronto's 2-1 lead with 5:51 remaining, the model estimated an **85.9% chance of winning**. The chart follows the probability through that one game.
+## What the dashboard includes
 
-## Scope
+- Toronto Maple Leafs vs New York Islanders game reconstruction.
+- An 85.9% estimated win probability at the 2-1 state with 5:51 remaining.
+- Calibration and held-out model comparisons, with readable prediction approach labels.
+- Projected points, playoff and Stanley Cup probabilities, using full team names.
+- A league forecast table, season backtests, model descriptions and limitations.
+- A saved 2026-2027 season archive.
 
-The public page is a saved one-game analysis. It does not refresh daily, fetch new seasons or publish Cup forecasts. GitHub Actions only deploys the static files when those files change, or when manually triggered. It does not use ChatGPT tasks or AI API calls.
+## Publishing and freshness
+
+The forecast snapshot uses results through October 3, 2026. It is experimental and is not currently refreshed automatically. The working GitHub Actions workflow only publishes saved static files on changes or manual dispatch. It does not call NHL APIs, run forecasts or use ChatGPT credits. The last saved dashboard remains available independently of API access.
 
 ## Method and limits
 
-The underlying Python model uses score, time remaining, prior team strength, shots, skaters and goalie-pulled indicators. This game was excluded from training. Probabilities are estimates, not guarantees.
+The game model uses score, time remaining, prior team strength, shots, skaters and goalie-pulled indicators. The reconstructed game was excluded from training.
 
-On held-out games, the calibrated model's Brier score was 0.1785, compared with 0.1763 for the simpler score/time baseline (lower is better). This project illustrates game-state modeling; it does not establish superior predictive performance.
+On held-out games, the calibrated model's Brier score was 0.1785, compared with 0.1763 for the score/time baseline (lower is better). The experimental season model also did not beat its playoff baseline in the latest retrospective check. These findings are displayed beside the charts. Simulation intervals measure sampling error, not all model uncertainty.
 
-The saved analysis and source provenance are in `outputs/artifact.json` and `outputs/game_explanation.json`. Historical research files remain for reproducibility; they are not part of the public dashboard.
-
-## Rebuild the saved page
-
-No new API request or model training is required:
+## Rebuild the full saved dashboard
 
 ```sh
-python3 scripts/game_night_dashboard.py
-node scripts/render_dashboard.mjs outputs/game_night_artifact.json
-cp outputs/dashboard.html docs/index.html
+python3 scripts/readable_dashboard.py --artifact outputs/artifact.json --forecast outputs/forecast.json
+node scripts/render_dashboard.mjs
+python3 scripts/archive_dashboard.py --html outputs/dashboard.html --forecast outputs/forecast.json --docs docs
 ```
 
-The portable renderer is packaged in the repository. GitHub Pages serves `docs/index.html` through the static deployment workflow.
+No API request or retraining is required to restore or publish this saved analysis. Source extracts, methodology, notebook and validation results remain in the repository.

@@ -48,14 +48,9 @@ def readable(artifact, forecast):
     for target,block in [('block_brier',model_guide),('block_cup',cup_guide)]:
         idx=next((i for i,b in enumerate(m['blocks']) if b['id']==target),None)
         if idx is not None: m['blocks'].insert(idx+1,block)
-    # Keep operational details in GitHub; the public page leads with hockey.
-    season=str(forecast['season']); label=season[:4]+'-'+season[4:]
-    intro['body']='# '+m['title']+'\n\nA game-night question: how likely is Toronto to win from a 2-1 lead?'
-    hidden={'automation_status','block_reliability','block_brier','model_guide','season_table'}
-    m['blocks']=[b for b in m['blocks'] if b['id'] not in hidden]
-    next(b for b in m['blocks'] if b['id']=='game_headline')['cardIds']=['game_p']
-    next(b for b in m['blocks'] if b['id']=='game_guardrail')['body']='A retrospective model estimate, not a guaranteed result. The model did not beat the simpler score/time baseline on held-out games. Full validation and methodology are available in the linked GitHub repository.'
-    next(b for b in m['blocks'] if b['id']=='season_guardrail')['body']='## '+label+' Stanley Cup Forecast\n\nExperimental model estimates. Cup intervals describe simulation error, not full model uncertainty.'
+    # Preserve all research charts and descriptions in the public snapshot.
+    cutoff=forecast.get('cutoff_date',forecast['as_of'])
+    intro['body']='# '+m['title']+'\n\nA game-night question: how likely is Toronto to win from a 2-1 lead? Explore the game reconstruction, model validation and experimental Stanley Cup comparison below.\n\n**Saved forecast snapshot:** results through '+cutoff+'. This page does not currently refresh automatically.'
     return artifact
 
 if __name__=='__main__':

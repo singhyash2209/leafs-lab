@@ -341,20 +341,22 @@
       {
         "id": "intro",
         "type": "markdown",
-        "body": "# Leafs Lab - From a 2-1 Lead to Cup Chances\n\nA game-night question: how likely is Toronto to win from a 2-1 lead?"
+        "body": "# Leafs Lab - From a 2-1 Lead to Cup Chances\n\nA game-night question: how likely is Toronto to win from a 2-1 lead? Explore the game reconstruction, model validation and experimental Stanley Cup comparison below.\n\n**Saved forecast snapshot:** results through 2026-10-03. This page does not currently refresh automatically."
       },
       {
         "id": "game_headline",
         "type": "metric-strip",
         "cardIds": [
-          "game_p"
+          "game_p",
+          "accuracy",
+          "brier"
         ]
       },
       {
         "id": "game_guardrail",
         "type": "markdown",
         "sourceId": "model",
-        "body": "A retrospective model estimate, not a guaranteed result. The model did not beat the simpler score/time baseline on held-out games. Full validation and methodology are available in the linked GitHub repository."
+        "body": "The calibrated model did not establish an improvement over the score/time baseline on the held-out season. Its 80-90% home-leading cohort also showed overconfidence. A correct prediction in one game does not validate a probability."
       },
       {
         "id": "block_game_curve",
@@ -362,9 +364,24 @@
         "chartId": "game_curve"
       },
       {
+        "id": "block_reliability",
+        "type": "chart",
+        "chartId": "reliability"
+      },
+      {
+        "id": "block_brier",
+        "type": "chart",
+        "chartId": "brier"
+      },
+      {
+        "id": "model_guide",
+        "type": "markdown",
+        "body": "### What the prediction approaches mean\n\n- **Calibrated Model:** the selected game model after probability calibration.\n- **Score/Time Baseline:** a simpler prediction using the score and time remaining.\n- **Uncalibrated Model:** the selected game model before calibration.\n- **Pregame Strength Only:** team-strength information before the game.\n- **Always 50/50:** assigns each side a 50% chance.\n\nThe x-axis compares prediction approaches. Brier score measures probability error; lower is better."
+      },
+      {
         "id": "season_guardrail",
         "type": "markdown",
-        "body": "## 2026-2027 Stanley Cup Forecast\n\nExperimental model estimates. Cup intervals describe simulation error, not full model uncertainty."
+        "body": "## Experimental season forecast\n\nThe revised season model did not outperform the 50% playoff baseline in the latest retrospective season check. Cup intervals describe simulation error, not full model uncertainty."
       },
       {
         "id": "headline",
@@ -390,6 +407,11 @@
         "id": "league_table",
         "type": "table",
         "tableId": "teams"
+      },
+      {
+        "id": "season_table",
+        "type": "table",
+        "tableId": "season_checks"
       },
       {
         "id": "limits",
